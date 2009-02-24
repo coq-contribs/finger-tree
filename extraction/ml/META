@@ -1,0 +1,5 @@
+name = "fingertrees"
+version = "0.1"
+description = "A Finger Tree implementation"
+archive(byte) = "fingertrees.cma"
+archive(native) = "fingertrees.cmxa"

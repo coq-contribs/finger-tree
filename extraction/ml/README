@@ -1,0 +1,10 @@
+A certified Finger Tree implementation
+
+Copyright (c) 2007 Matthieu Sozeau <sozeau@lri.fr>
+
+Licensed under the LGPL
+
+Compile using make ; make install
+The library is packed inside the Fingertree module,
+mostly the DependentFingerTreeModule and FingerTreeModule
+interfaces are usable.

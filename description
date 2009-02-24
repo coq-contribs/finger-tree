@@ -1,0 +1,11 @@
+Name: FingerTrees
+Title: Dependent Finger Trees
+Author: Matthieu Sozeau
+Email: mattam@mattam.org
+Homepage: http://mattam.org
+Institution: LRI - Université Paris Sud XI
+Date: February 2009
+Description: A verified generic implementation of Finger Trees
+Url: http://mattam.org/research/russell/fingertrees.en.html
+License: LGPL
+Keywords: data structures, dependent types, Finger Trees
