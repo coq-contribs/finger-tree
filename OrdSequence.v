@@ -92,16 +92,12 @@ Module OrdSequence(AO : OrderedType).
      bien fondée sur la paire des séquences. Les obligations générées peuvent être résolues en utilisant
      le lemme [view_left_size] défini plus haut. %\label{fig:merge}% *) 
 
-  Definition pair_size (x : OrdSeq * OrdSeq) :=
-    let (l, r) := x in tree_size l + tree_size r.
-
-  Program Fixpoint merge (x : OrdSeq * OrdSeq) {measure pair_size} : OrdSeq :=
-    let '(xs, ys) := x in
+  Program Fixpoint merge (xs ys : OrdSeq) {measure (tree_size xs + tree_size ys)} : OrdSeq :=
     match view_left xs with
       | nil_left => ys
       | cons_left x xs' =>
         let '(l, r) := split_with (fun y => key_gt y (measure x)) ys 
-        in cat l (cons x (merge (r, xs')))
+        in cat l (cons x (merge r xs'))
     end.
 
   (** On obtient donc une implémentation des séquences ordonnées bâtie sur le code 
@@ -121,12 +117,13 @@ Module OrdSequence(AO : OrderedType).
   Next Obligation.
   Proof.
     simpl.
-    pose (view_left_size _ (sym_eq Heq_anonymous)).
-    cut (FingerTree.tree_size o0 >= FingerTree.tree_size r) ; intros ; try omega.
-    (* Have to prove that split_with returns trees smaller than or 
-       of same size the argument. Problem with proof terms polluting the goal 
-       hence admitted for now. *)
-  Admitted.
+    cut (FingerTree.tree_size ys >= FingerTree.tree_size r) ; intros.
+    pose (view_left_size _ (sym_eq Heq_anonymous)) ; omega.
+    rewrite (split_size _ _ (sym_eq Heq_anonymous0)). simpl. omega.
+  Qed.
+
+  Next Obligation.
+  Proof. auto with arith. Defined.
 
 End OrdSequence.
 
