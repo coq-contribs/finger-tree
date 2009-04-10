@@ -1286,15 +1286,6 @@ match type of IHt with
         program_simpl ; assumption.
       Qed.
 
-      Next Obligation.
-      Proof.
-        intros.
-        destruct_call get_tree.
-        clear get_tree.
-        abstract (simpl in * ; simpl_monoid ;
-        destruct x0 ; simpl in * ; autoinjections; intuition).
-      Defined.
-
     End Trees.
 
   End Get.
