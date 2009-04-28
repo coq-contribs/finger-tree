@@ -27,7 +27,7 @@ Section DependentFingerTree.
      mesure. Les [node] cachent aussi une mesure qui contient la combinaison des mesures des sous-objets. *)
 
   Section Nodes.
-    Context `{ms : Measured v A}.
+    Context `{ms :! Measured v A}.
 
     (** On dénote encore une fois la fonction [measure] par $\measure{\_}$ dans la suite. *)
     
@@ -94,13 +94,13 @@ Section DependentFingerTree.
   (* begin hide *)  
   Hint Unfold measure option_measure digit_measure : ft.
 
-  Implicit Arguments node [m ms].
+  Implicit Arguments node [[ms]].
 
-  Lemma nodeMeasure_digits : forall `{ms : Measured v A} (n : node A), 
+  Lemma nodeMeasure_digits : forall `{ms :! Measured v A} (n : node A), 
     (measure n) = digit_reducel (fun i a => i ∙ measure a) ε (node_to_digit n).
   Proof.
     intros.
-    destruct n ; program_simpl ; monoid_tac ; auto.
+    destruct n ; program_simpl ; monoid_tac ; auto. 
   Qed.
   (* end hide *)
 
@@ -871,7 +871,7 @@ Section DependentFingerTree.
   Section Cat.
   (** Concatenation still using digits. *)
     Obligation Tactic := 
-      intros ; monoid_tac ; auto ; 
+      intros ; monoid_tac ; auto ;
         program_simpl ; unfold measure ; simpl ; program_simpl ; monoid_tac ; auto.
 
     (* Too long to check interactively (2min) *)
