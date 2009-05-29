@@ -1,5 +1,4 @@
 (* begin hide *)
-Set Manual Implicit Arguments.
 Require Export Coq.Program.Basics Program.
 (* end hide *)
 (** printing measure %\coqmethodref{FingerTree.Monoid.measure}{measure}% *)(** printing lparr $\coqdoublebar$ *)(** printing rparr $\coqdoublebar$ *)

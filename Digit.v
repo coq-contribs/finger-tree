@@ -144,6 +144,11 @@ Section DigitReduce.
     
   Definition digitReduce := mkReduce digit_reducer digit_reducel.
 
+  Context {A:Type}.
+  Definition digit_to_list (x : digit A) : list A := toList digitReduce _ x.
+  
+  Definition option_digit_to_list (x : option (digit A)) : list A := match x with None => [] | Some x => digit_to_list x end.
+
 End DigitReduce.
 
 Ltac monoid_tac := autorewrite with monoid.
@@ -162,10 +167,7 @@ Section Notations.
   Obligation Tactic := splitTac.
 
   Section Digits.
-    Context `{ms : Measured v A}.
-
-    Definition digit_to_list (x : digit A) : list A := toList digitReduce _ x.
-    Definition option_digit_to_list (x : option (digit A)) : list A := match x with None => [] | Some x => digit_to_list x end.
+    Context `{ms : !Measured v A}.
 
     Program Definition split_digit (p : v -> bool) (i : v) (d : digit A) : 
       { (l, x, r) : option (digit A) * A * option (digit A) | 
