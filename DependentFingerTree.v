@@ -1255,6 +1255,8 @@ Section DependentFingerTree.
         left ; compute ; auto.
       Qed.
 
+Unset Dependent Propositions Elimination.
+
       Next Obligation.
       Proof.
         destruct (split_digit p i pr0) ; program_simpl.

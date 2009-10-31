@@ -7,6 +7,7 @@ Require Import FingerTree.Modules.
 Require Import FingerTree.DigitModule.
 
 Require Import Coq.Program.Program.
+Unset Dependent Propositions Elimination.
 Set Implicit Arguments.
 (** Useful when working with existT equalities. *)
 Implicit Arguments inj_pair2 [U P p x y].
