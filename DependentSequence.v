@@ -1,7 +1,7 @@
 (** printing cdot $\cdot$ *)(** printing circ $\circ$ *)(** printing +:+ $\treeapp$ *)(** printing epsilon $\varepsilon$ *)(** printing :> $\Yright$ *)(** printing ::> $\Yright$ *)(** printing < $<$ *)
 (* begin hide *)
 Require Import FingerTree.Monoid.
-Require Import Coq.Program.Program.
+Require Import Coq.Program.Program Coq.Program.Equality.
 Require Import Coq.Logic.FunctionalExtensionality.
 (* Require Import Reflect.Tactics. *)
 Require Import Arith.
@@ -147,7 +147,7 @@ Section DependentSequence.
     simpl ; intros.
     destruct y ; simpl.
     f_equal.
-    apply subset_eq_compat.
+    apply <- subset_eq. simpl.
     rewrite <- minus_n_O.
     reflexivity.
   Qed.
@@ -164,16 +164,17 @@ Section DependentSequence.
     simpl ; intros.
     elim (less_than z x) ; simpl ; intros ; auto.
     f_equal ; intros ; auto. 
-    apply subset_eq_compat ; try reflexivity.
+    apply <- subset_eq ; try reflexivity.
     assert(z < x) by omega.
     assert(~ z < x) by omega.
     contradiction.
   Qed.
   
+  Notation " ( x &) " := (@exist _ _ x _).
+
   Next Obligation.
   Proof. red.
-    unfold append ; intros.
-    destruct x ; destruct y ; destruct z ; subst ; simpl ; auto.
+    destruct x ; destruct y ; destruct z ; subst ; simpl ; auto. 
     unfold below in *.
     assert (x + x0 + x1 = x + (x0 + x1)) ; auto with arith.
     pose (@subsetT_eq_compat _ (fun i => fun n => n < i)
@@ -182,10 +183,9 @@ Section DependentSequence.
     eapply e.
     intros ; simpl.
     elim (less_than z (x + x0)) ; simpl ; intros.
-    elim (less_than z x) ; simpl ; intros.
-    f_equal ; apply subset_eq_compat ; auto.
+    elim (less_than z x) ; simpl ; intros; try pi.
     elim (less_than (z - x) x0) ; simpl ; intros.
-    f_equal ; apply subset_eq_compat ; auto.
+    pi.
 
     assert(x0 = 0) by omega.
     assert(~ z < x) by omega.
@@ -203,7 +203,7 @@ Section DependentSequence.
     inversion a2.
 
     f_equal ; simpl ; intros ; auto.
-    apply subset_eq_compat ; omega.
+    apply <- subset_eq ; simpl ; omega.
   Qed.
 
   Require Import FingerTree.Notations.
@@ -422,7 +422,7 @@ Section DependentSequence.
 
     destruct (less_than (z - 0) 1).
     contradiction by (z < 1).
-    f_equal ; apply subset_eq_compat ; omega.
+    f_equal; apply subset_eq_compat; omega.
     
     assert(j = ls) by omega ; subst j.
     contradiction by (z < ls + 1).
@@ -437,7 +437,7 @@ Section DependentSequence.
 
   Lemma eq_nat_refl : forall A x (l r : A), (if (x =n x) then l else r) = l.
   Proof.
-    intros ; destruct (x =n x) ; auto with *. elim n ; reflexivity.
+    intros ; destruct (x =n x) ; auto with *. 
   Qed.
   Notation " j `<> k " := ((j :> ) <> (k :> )) (at level 20).
 (* In the following definition we use the quoted operators [`<>] and [`=] which are wrappers around *)
@@ -479,40 +479,7 @@ Section DependentSequence.
     destruct exist j Hj.
     red ; intro He ; isEmpty_tac He ; inversion Hj.
   Qed.
-    
-  Next Obligation.
-  Proof.
-    clear  Heq_anonymous0.
-    intros.
-    destruct exist j Hj.
-    destruct exist ls lf.
-    destruct exist rs rf.
-    destruct exist l Hl ; destruct exist r Hr.
-    simpl in *.
-    inversion Heq_anonymous ; clear Heq_anonymous.
-    subst i.
-    assert (Hproj:=inj_pairT2 H1).
-    subst m ; clear H1 x.
 
-    unfold apply ; simpl.
-
-    cut (j = ls) ; intros.
-    subst j.
-
-    pose (@subsetT_eq_compat _ (fun i => fun n => n < i)
-     ls ls A (refl_equal ls)).
-    simpl in e.
-    apply e ; simpl ; intros ; clear e.
-    unfold compose ; simpl.
-    elim (less_than z ls) ; intros ; simpl ; auto.
-    f_equal ; simpl ; auto. 
-    apply subset_eq_compat ; auto.
-
-    contradiction.
-
-    destruct or Hl ; [ isEmpty_tac Hl | poses Hl'' (lt_complete_conv Hl) ; clear Hl] ;
-      (destruct or Hr ; [ isEmpty_tac Hr | poses Hr'' (lt_complete Hr) ; clear Hr]) ; omega.
-  Qed.
 
   Next Obligation.
   Proof.
@@ -560,6 +527,36 @@ Section DependentSequence.
     f_equal ; apply subset_eq_compat ; auto.
     rewrite minus_plus ; reflexivity.
     
+    destruct or Hl ; [ isEmpty_tac Hl | poses Hl'' (lt_complete_conv Hl) ; clear Hl] ;
+      (destruct or Hr ; [ isEmpty_tac Hr | poses Hr'' (lt_complete Hr) ; clear Hr]) ; omega.
+  Qed.
+    
+  Next Obligation.
+  Proof.
+    clear  Heq_anonymous0.
+    intros.
+    destruct exist j Hj.
+    destruct exist ls lf.
+    destruct exist rs rf.
+    destruct exist l Hl ; destruct exist r Hr.
+    simpl in *.
+    inversion Heq_anonymous ; clear Heq_anonymous.
+    subst i.
+    assert (Hproj:=inj_pairT2 H1).
+    subst m ; clear H1 x.
+
+    unfold apply ; simpl.
+
+    cut (j = ls) ; intros.
+    subst j.
+
+    apply (@subsetT_eq_compat _ (fun i => fun n => n < i) _ _ A (@eq_refl _ ls)).
+    simpl ; intros. 
+    unfold compose ; simpl.
+    elim (less_than z ls) ; intros ; simpl ; auto.
+    f_equal ; simpl ; auto. 
+    apply <- subset_eq ; auto.
+
     destruct or Hl ; [ isEmpty_tac Hl | poses Hl'' (lt_complete_conv Hl) ; clear Hl] ;
       (destruct or Hr ; [ isEmpty_tac Hr | poses Hr'' (lt_complete Hr) ; clear Hr]) ; omega.
   Qed.

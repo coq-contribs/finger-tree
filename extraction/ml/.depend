@@ -1,26 +1,29 @@
+datatypes.cmi: 
+logic.cmi: 
 peano.cmi: datatypes.cmi 
 specif.cmi: logic.cmi datatypes.cmi 
 sumbool.cmi: specif.cmi 
-digitModule.cmi: specif.cmi modules.cmi logic.cmi datatypes.cmi 
-dependentFingerTreeModule.cmi: specif.cmi peano.cmi modules.cmi logic.cmi \
-    digitModule.cmi datatypes.cmi 
-fingerTreeModule.cmi: specif.cmi peano.cmi modules.cmi digitModule.cmi \
+digitModule.cmi: specif.cmi logic.cmi datatypes.cmi 
+dependentFingerTreeModule.cmi: specif.cmi peano.cmi logic.cmi digitModule.cmi \
+    datatypes.cmi 
+fingerTreeModule.cmi: specif.cmi peano.cmi digitModule.cmi \
     dependentFingerTreeModule.cmi datatypes.cmi 
-nZBase.cmi: nZAxioms.cmi 
-nZAdd.cmi: nZBase.cmi nZAxioms.cmi 
-nZMul.cmi: nZAxioms.cmi nZAdd.cmi 
-nZOrder.cmi: nZMul.cmi nZAxioms.cmi datatypes.cmi 
-nZMulOrder.cmi: nZAxioms.cmi nZAddOrder.cmi datatypes.cmi 
-nAxioms.cmi: nZAxioms.cmi 
-nBase.cmi: nZMulOrder.cmi nAxioms.cmi datatypes.cmi 
-nAdd.cmi: nBase.cmi nAxioms.cmi datatypes.cmi 
-nMul.cmi: nAxioms.cmi nAdd.cmi datatypes.cmi 
-nOrder.cmi: nMul.cmi nAxioms.cmi datatypes.cmi 
-nMulOrder.cmi: nAxioms.cmi nAddOrder.cmi datatypes.cmi 
-nSub.cmi: nMulOrder.cmi nAxioms.cmi datatypes.cmi 
-stringInterface.cmi: specif.cmi nSub.cmi nBase.cmi nAxioms.cmi datatypes.cmi 
-ropeModule.cmi: stringInterface.cmi specif.cmi nZAxioms.cmi nBase.cmi \
-    fingerTreeModule.cmi digitModule.cmi datatypes.cmi 
+nZBase.cmi: 
+nZAdd.cmi: nZBase.cmi 
+nZMul.cmi: nZAdd.cmi 
+nZOrder.cmi: nZMul.cmi datatypes.cmi 
+nZAddOrder.cmi: nZOrder.cmi datatypes.cmi 
+nZMulOrder.cmi: nZAddOrder.cmi datatypes.cmi 
+nBase.cmi: nZMulOrder.cmi datatypes.cmi 
+nAdd.cmi: nBase.cmi datatypes.cmi 
+nMul.cmi: nAdd.cmi datatypes.cmi 
+nOrder.cmi: nMul.cmi datatypes.cmi 
+nAddOrder.cmi: nOrder.cmi datatypes.cmi 
+nMulOrder.cmi: nAddOrder.cmi datatypes.cmi 
+nSub.cmi: nMulOrder.cmi datatypes.cmi 
+stringInterface.cmi: specif.cmi nSub.cmi nBase.cmi datatypes.cmi 
+ropeModule.cmi: stringInterface.cmi specif.cmi nBase.cmi fingerTreeModule.cmi \
+    digitModule.cmi datatypes.cmi 
 datatypes.cmo: datatypes.cmi 
 datatypes.cmx: datatypes.cmi 
 logic.cmo: logic.cmi 
@@ -31,51 +34,47 @@ specif.cmo: logic.cmi datatypes.cmi specif.cmi
 specif.cmx: logic.cmx datatypes.cmx specif.cmi 
 sumbool.cmo: specif.cmi sumbool.cmi 
 sumbool.cmx: specif.cmx sumbool.cmi 
-modules.cmo: modules.cmi 
-modules.cmx: modules.cmi 
-digitModule.cmo: specif.cmi modules.cmi logic.cmi datatypes.cmi \
-    digitModule.cmi 
-digitModule.cmx: specif.cmx modules.cmx logic.cmx datatypes.cmx \
-    digitModule.cmi 
-dependentFingerTreeModule.cmo: specif.cmi peano.cmi modules.cmi logic.cmi \
-    digitModule.cmi datatypes.cmi dependentFingerTreeModule.cmi 
-dependentFingerTreeModule.cmx: specif.cmx peano.cmx modules.cmx logic.cmx \
-    digitModule.cmx datatypes.cmx dependentFingerTreeModule.cmi 
-fingerTreeModule.cmo: specif.cmi peano.cmi modules.cmi digitModule.cmi \
+digitModule.cmo: specif.cmi logic.cmi datatypes.cmi digitModule.cmi 
+digitModule.cmx: specif.cmx logic.cmx datatypes.cmx digitModule.cmi 
+dependentFingerTreeModule.cmo: specif.cmi peano.cmi logic.cmi digitModule.cmi \
+    datatypes.cmi dependentFingerTreeModule.cmi 
+dependentFingerTreeModule.cmx: specif.cmx peano.cmx logic.cmx digitModule.cmx \
+    datatypes.cmx dependentFingerTreeModule.cmi 
+fingerTreeModule.cmo: specif.cmi peano.cmi digitModule.cmi \
     dependentFingerTreeModule.cmi datatypes.cmi fingerTreeModule.cmi 
-fingerTreeModule.cmx: specif.cmx peano.cmx modules.cmx digitModule.cmx \
+fingerTreeModule.cmx: specif.cmx peano.cmx digitModule.cmx \
     dependentFingerTreeModule.cmx datatypes.cmx fingerTreeModule.cmi 
-nZAxioms.cmo: nZAxioms.cmi 
-nZAxioms.cmx: nZAxioms.cmi 
-nZBase.cmo: nZAxioms.cmi nZBase.cmi 
-nZBase.cmx: nZAxioms.cmx nZBase.cmi 
-nZAdd.cmo: nZBase.cmi nZAxioms.cmi nZAdd.cmi 
-nZAdd.cmx: nZBase.cmx nZAxioms.cmx nZAdd.cmi 
-nZMul.cmo: nZAxioms.cmi nZAdd.cmi nZMul.cmi 
-nZMul.cmx: nZAxioms.cmx nZAdd.cmx nZMul.cmi 
-nZOrder.cmo: nZMul.cmi nZAxioms.cmi datatypes.cmi nZOrder.cmi 
-nZOrder.cmx: nZMul.cmx nZAxioms.cmx datatypes.cmx nZOrder.cmi 
-nZMulOrder.cmo: nZAxioms.cmi nZAddOrder.cmi datatypes.cmi nZMulOrder.cmi 
-nZMulOrder.cmx: nZAxioms.cmx nZAddOrder.cmx datatypes.cmx nZMulOrder.cmi 
-nAxioms.cmo: nZAxioms.cmi nAxioms.cmi 
-nAxioms.cmx: nZAxioms.cmx nAxioms.cmi 
-nBase.cmo: nZMulOrder.cmi nAxioms.cmi datatypes.cmi nBase.cmi 
-nBase.cmx: nZMulOrder.cmx nAxioms.cmx datatypes.cmx nBase.cmi 
-nAdd.cmo: nBase.cmi nAxioms.cmi datatypes.cmi nAdd.cmi 
-nAdd.cmx: nBase.cmx nAxioms.cmx datatypes.cmx nAdd.cmi 
-nMul.cmo: nAxioms.cmi nAdd.cmi datatypes.cmi nMul.cmi 
-nMul.cmx: nAxioms.cmx nAdd.cmx datatypes.cmx nMul.cmi 
-nOrder.cmo: nMul.cmi nAxioms.cmi datatypes.cmi nOrder.cmi 
-nOrder.cmx: nMul.cmx nAxioms.cmx datatypes.cmx nOrder.cmi 
-nMulOrder.cmo: nAxioms.cmi nAddOrder.cmi datatypes.cmi nMulOrder.cmi 
-nMulOrder.cmx: nAxioms.cmx nAddOrder.cmx datatypes.cmx nMulOrder.cmi 
-nSub.cmo: nMulOrder.cmi nAxioms.cmi datatypes.cmi nSub.cmi 
-nSub.cmx: nMulOrder.cmx nAxioms.cmx datatypes.cmx nSub.cmi 
-stringInterface.cmo: specif.cmi nSub.cmi nBase.cmi nAxioms.cmi datatypes.cmi \
+nZBase.cmo: nZBase.cmi 
+nZBase.cmx: nZBase.cmi 
+nZAdd.cmo: nZBase.cmi nZAdd.cmi 
+nZAdd.cmx: nZBase.cmx nZAdd.cmi 
+nZMul.cmo: nZAdd.cmi nZMul.cmi 
+nZMul.cmx: nZAdd.cmx nZMul.cmi 
+nZOrder.cmo: nZMul.cmi datatypes.cmi nZOrder.cmi 
+nZOrder.cmx: nZMul.cmx datatypes.cmx nZOrder.cmi 
+nZAddOrder.cmo: nZOrder.cmi datatypes.cmi nZAddOrder.cmi 
+nZAddOrder.cmx: nZOrder.cmx datatypes.cmx nZAddOrder.cmi 
+nZMulOrder.cmo: nZAddOrder.cmi datatypes.cmi nZMulOrder.cmi 
+nZMulOrder.cmx: nZAddOrder.cmx datatypes.cmx nZMulOrder.cmi 
+nBase.cmo: nZMulOrder.cmi datatypes.cmi nBase.cmi 
+nBase.cmx: nZMulOrder.cmx datatypes.cmx nBase.cmi 
+nAdd.cmo: nBase.cmi datatypes.cmi nAdd.cmi 
+nAdd.cmx: nBase.cmx datatypes.cmx nAdd.cmi 
+nMul.cmo: nAdd.cmi datatypes.cmi nMul.cmi 
+nMul.cmx: nAdd.cmx datatypes.cmx nMul.cmi 
+nOrder.cmo: nMul.cmi datatypes.cmi nOrder.cmi 
+nOrder.cmx: nMul.cmx datatypes.cmx nOrder.cmi 
+nAddOrder.cmo: nOrder.cmi datatypes.cmi nAddOrder.cmi 
+nAddOrder.cmx: nOrder.cmx datatypes.cmx nAddOrder.cmi 
+nMulOrder.cmo: nAddOrder.cmi datatypes.cmi nMulOrder.cmi 
+nMulOrder.cmx: nAddOrder.cmx datatypes.cmx nMulOrder.cmi 
+nSub.cmo: nMulOrder.cmi datatypes.cmi nSub.cmi 
+nSub.cmx: nMulOrder.cmx datatypes.cmx nSub.cmi 
+stringInterface.cmo: specif.cmi nSub.cmi nBase.cmi datatypes.cmi \
     stringInterface.cmi 
-stringInterface.cmx: specif.cmx nSub.cmx nBase.cmx nAxioms.cmx datatypes.cmx \
+stringInterface.cmx: specif.cmx nSub.cmx nBase.cmx datatypes.cmx \
     stringInterface.cmi 
-ropeModule.cmo: stringInterface.cmi specif.cmi nZAxioms.cmi nBase.cmi \
-    fingerTreeModule.cmi digitModule.cmi datatypes.cmi ropeModule.cmi 
-ropeModule.cmx: stringInterface.cmx specif.cmx nZAxioms.cmx nBase.cmx \
-    fingerTreeModule.cmx digitModule.cmx datatypes.cmx ropeModule.cmi 
+ropeModule.cmo: stringInterface.cmi specif.cmi nBase.cmi fingerTreeModule.cmi \
+    digitModule.cmi datatypes.cmi ropeModule.cmi 
+ropeModule.cmx: stringInterface.cmx specif.cmx nBase.cmx fingerTreeModule.cmx \
+    digitModule.cmx datatypes.cmx ropeModule.cmi 

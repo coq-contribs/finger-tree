@@ -3,7 +3,8 @@ Require Import FingerTree.Monoid.
 Require Import FingerTree.Reduce.
 Require Import FingerTree.Notations.
 Require Import FingerTree.Digit.
-Require Import Coq.Lists.List Coq.Program.Program JMeq.
+Require Import Coq.Lists.List Coq.Program.Program JMeq Coq.Program.Equality.
+
 Set Implicit Arguments.
 (** Useful when working with existT equalities. *)
 Implicit Arguments inj_pair2 [U P p x y].
@@ -832,8 +833,7 @@ Section DependentFingerTree.
       isEmpty t -> s = ε.
     Proof.
       intros; induction t ; simpl ; auto.
-      unfold isEmpty in H ; simpl in H ; auto ; elim H.
-      unfold isEmpty in H ; simpl in H.
+      unfold isEmpty in H ; simpl in H ; auto. 
       destruct l ; simpl ; auto ; try contradiction.
       program_simpl ; destruct (view_L t) ; simpl ; try contradiction.
     Qed.
@@ -875,6 +875,7 @@ Section DependentFingerTree.
         program_simpl ; unfold measure ; simpl ; program_simpl ; monoid_tac ; auto.
 
     (* Too long to check interactively (2min) *)
+    
     Time Program Fixpoint appendTree0 `{ma :! Measured v A} (xsm : v) (xs : fingertree A xsm)
       (ysm : v) (ys : fingertree A ysm) {struct xs} : fingertree A (xsm ∙ ysm) :=
       match xs in fingertree _ xsm, ys in fingertree _ ysm return fingertree A (xsm ∙ ysm) with
@@ -1092,7 +1093,7 @@ Section DependentFingerTree.
                 end
             end in Deep pr addDigits4 sf'
       end.
-      
+
   End Cat.
   (* end hide *)
   (** ** Concaténation et découpage dépendants.
@@ -1107,7 +1108,7 @@ Section DependentFingerTree.
      un arbre dont la mesure est la concaténation des mesures des deux arbres.
      %\label{def:app}% *)
 
-  Definition app `{ma :! Measured v A}
+  Program Definition app `{ma :! Measured v A}
     (xs : v) (x : fingertree A xs) (ys : v) (y : fingertree A ys) : 
     fingertree A (xs ∙ ys) := appendTree0 x y.
 
@@ -1263,8 +1264,8 @@ Unset Dependent Propositions Elimination.
         destruct_conjs.
         simpl_JMeq.
         subst t.
-        destruct H3 ; [left | right] ; auto.
-        rewrite H3 ; constructor.
+        destruct o1 ; [left | right] ; auto.
+        rewrite H1 ; constructor.
       Qed.
 
       Ltac monoid_tac_in H := autorewrite with monoid in H.
@@ -1273,30 +1274,28 @@ Unset Dependent Propositions Elimination.
       Proof.
         destruct (split_digit p i pr0) ; program_simpl.
         destruct_conjs ; simpl_JMeq ; autoinjections.
-        destruct H3.
-        subst o0.
+        destruct o1. subst o0.
         simpl in *.
         unfold measure, digit_measure in *.
-        rewrite H1 in H.
+        rewrite e in H.
         simpl in H. autorewrite with monoid in H ; auto.
-        destruct H4 ; [subst ; simpl in * ; monoid_tac_in H|idtac].
+        destruct o2 ; [subst ; simpl in * ; monoid_tac_in H|idtac].
         simpl in * ; right ; auto.
         monoid_tac ; assumption.
         right ; monoid_tac ; auto.
-        autorewrite with monoid in H2. assumption.
+        autorewrite with monoid in H1. assumption.
         
         unfold measure.
-        destruct H4. 
-        subst.
-        unfold digit_measure, measure in * ; rewrite H1 in H.
+        destruct o2; subst.
+        unfold digit_measure, measure in * ; rewrite e in H.
         simpl in H ; monoid_tac_in H.
         right ; auto.
-        right ; autorewrite with monoid in H3 ; monoid_tac ; auto.
+        right ; autorewrite with monoid in e ; monoid_tac ; auto.
       Qed.
       
       Next Obligation.
         destruct (split_digit p i pr0) ; program_simpl.
-        destruct_conjs. simpl in H1. rewrite H1. monoid_tac.
+        simpl in e. rewrite e. monoid_tac.
         reflexivity.
       Qed.
 
@@ -1326,22 +1325,42 @@ Unset Dependent Propositions Elimination.
         
       Next Obligation.
       Proof.
-        clear Heq_anonymous split_tree'. 
+        destruct (split_digit p ((i ∙ measure pr0) ∙ smid) sf).
+        simpl in *. subst x0 ; program_simpl.
         right.
-        destruct_call split_node in Heq_anonymous0. simpl in *. subst.
-        program_simpl.
-        destruct_nondep H2 ; monoid_tac_in H2 ;auto.
-        assert (He:=isEmpty_ε _ H8).
-        subst mls.
-        destruct H6 ; monoid_tac_in H6 ; monoid_tac ; auto.
-        subst l.
-        simpl in * ; monoid_tac ; auto.
-        
-        destruct H6 ; monoid_tac_in H8 ; monoid_tac ; auto.
-        subst l.
-        simpl in * ; monoid_tac ; auto.
-        
-        monoid_tac_in H6 ; auto.
+        destruct H4 as [H4|H4] ; subst ; try monoid_tac_in H4 ; auto.
+        simpl in H2; monoid_tac_in H2.
+        simpl ; monoid_tac.
+        monoid_tac_in H0 ; auto.
+      Qed.
+
+
+      Next Obligation.
+      Proof.
+        destruct (split_digit p ((i ∙ measure pr0) ∙ smid) sf).
+        simpl in *. subst x0 ; simpl in * ; program_simpl.
+        monoid_tac.
+        destruct_pairs.
+        destruct H5 as [H5|H5] ; subst ; try monoid_tac_in H5 ; auto.
+        left ; simpl. split.
+      Qed.
+
+      Next Obligation.
+      Proof.
+        destruct (split_digit p ((i ∙ measure pr0) ∙ smid) sf).
+        destruct x0 ; simpl in * ; program_simpl.
+        monoid_tac. rewrite H2. auto.
+      Qed.
+
+      Next Obligation.
+      Proof.
+        clear Heq_anonymous.
+        destruct (split_node p ((i ∙ measure pr0) ∙ mls) x).
+        simpl in * ; subst x1.
+        monoid_tac.
+        program_simpl ; destruct_pairs.
+        rewrite H4.
+        monoid_tac ; reflexivity.
       Defined.
 
       Next Obligation.
@@ -1365,41 +1384,22 @@ Unset Dependent Propositions Elimination.
       Next Obligation.
       Proof.
         clear split_tree' Heq_anonymous.
-        destruct (split_node p ((i ∙ measure pr0) ∙ mls) x).
-        simpl in * ; subst x1.
-        monoid_tac.
-        program_simpl ; destruct_pairs.
-        rewrite H4.
-        monoid_tac ; reflexivity.
-      Defined.
-
-      Next Obligation.
-      Proof.
-        destruct (split_digit p ((i ∙ measure pr0) ∙ smid) sf).
-        simpl in *. subst x0 ; program_simpl.
         right.
-        destruct H4 as [H4|H4] ; subst ; try monoid_tac_in H4 ; auto.
-        simpl in H2; monoid_tac_in H2.
-        simpl ; monoid_tac.
-        monoid_tac_in H0 ; auto.
-      Qed.
-
-      Next Obligation.
-      Proof.
-        destruct (split_digit p ((i ∙ measure pr0) ∙ smid) sf).
-        simpl in *. subst x0 ; simpl in * ; program_simpl.
-        monoid_tac.
-        destruct_pairs.
-        destruct H5 as [H5|H5] ; subst ; try monoid_tac_in H5 ; auto.
-        left ; simpl. split.
-      Qed.
-
-      Next Obligation.
-      Proof.
-        destruct (split_digit p ((i ∙ measure pr0) ∙ smid) sf).
-        destruct x0 ; simpl in * ; program_simpl.
-        monoid_tac. rewrite H2. auto.
-      Qed.
+        destruct_call split_node in Heq_anonymous0. simpl in *. subst.
+        program_simpl.
+        destruct_nondep H2 ; monoid_tac_in H2 ;auto.
+        assert (He:=isEmpty_ε _ H8).
+        subst mls.
+        destruct H6 ; monoid_tac_in H6 ; monoid_tac ; auto.
+        subst l.
+        simpl in * ; monoid_tac ; auto.
+        
+        destruct H6 ; monoid_tac_in H8 ; monoid_tac ; auto.
+        subst l.
+        simpl in * ; monoid_tac ; auto.
+        
+        monoid_tac_in H6 ; auto.
+      Defined.
       
       Transparent measure.
       Obligation Tactic := program_simpl.

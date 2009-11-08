@@ -6,7 +6,7 @@ Require Import FingerTree.Notations.
 Require Import FingerTree.Modules.
 Require Import FingerTree.DigitModule.
 
-Require Import Coq.Program.Program.
+Require Import Coq.Program.Program Coq.Program.Equality.
 Unset Dependent Propositions Elimination.
 Set Implicit Arguments.
 (** Useful when working with existT equalities. *)
@@ -617,8 +617,10 @@ match type of IHt with
             | cons_L a sm' m' => Deep (node_to_digit a) m' sf
           end
       end.
+
+    Obligation Tactic := program_simpl ; monoid_tac ; auto.
+    Solve Obligations.
     
-    Solve Obligations using program_simpl ; monoid_tac ; auto.
     Next Obligation.
     Proof.
       intros.
@@ -630,7 +632,7 @@ match type of IHt with
     Qed.
 
     Next Obligation.
-    Proof.
+    Proof. 
       intros.
       unfold option_digit_measure, option_measure.
       monoid_tac.
@@ -702,7 +704,7 @@ match type of IHt with
     Proof.
       intros.
       destruct sf ; simpl in * ; auto.
-      intro ; apply (H a) ; auto.
+      apply (H a). auto.
     Defined.
 
     Lemma view_R_case : forall A (measure : A -> v) (s : v) (t : fingertree measure s), view_R t = nil_R \/ 
@@ -728,7 +730,8 @@ match type of IHt with
     Proof.
       induction t ; program_simpl ; intros ; simpl in * ; try discriminate ; auto.
       simpl ; monoid_tac ; auto.
-      program_simpl ; destruct r ; simpl  in * ; try discriminate ; monoid_tac ; auto ; try (inversion H ; subst ; simpl ; monoid_tac ; auto).
+      program_simpl ; destruct r ; simpl  in * ; try discriminate ; monoid_tac ; auto ; 
+        try (inversion H ; subst ; simpl ; monoid_tac ; auto).
 
       destruct (view_R_case t).
       rewrite H0 in H.
@@ -754,9 +757,9 @@ match type of IHt with
           end
       end.
 
-    Solve Obligations using program_simpl ; monoid_tac ; auto.
+    Obligation Tactic := program_simpl ; monoid_tac ; auto.
     
-   Next Obligation.
+    Next Obligation.
     Proof.
       intros.
       unfold option_digit_measure ; simpl.
@@ -917,9 +920,8 @@ match type of IHt with
    Lemma isEmpty_epsilon : forall (A : Type) (measure : A -> v) (s : v) (t : fingertree measure s), 
       isEmpty t -> s = epsilon.
     Proof.
-      intros; induction t ; simpl ; auto.
-      unfold isEmpty in H ; simpl in H ; auto ; elim H.
-      unfold isEmpty in H ; simpl in H.
+      intros; induction t; simpl; auto.
+      unfold isEmpty in H ; simpl in H ; auto.
       destruct l ; simpl ; auto ; try contradiction.
       program_simpl ; destruct (view_L t) ; simpl ; try contradiction.
     Qed.
@@ -1176,8 +1178,6 @@ match type of IHt with
                 end
             end in Deep pr addDigits4 sf'
       end.
-
-    Solve All Obligations using program_simpl ; intros ; program_simpl ; monoid_tac ; auto.
   End Cat.
   (* end hide *)
   (** ** Catenation & splitting, dependently
@@ -1277,14 +1277,11 @@ match type of IHt with
         intros.
         simpl_JMeq.
         subst.
-        destruct (isEmpty_dec mid).
-        destruct mid ; unfold isEmpty in i0 ; simpl in i0 ; program_simpl ; auto.
-        red ; intros.
+        destruct mid ; unfold isEmpty in H2 ; simpl in H2 ; program_simpl ; auto.
         rewrite monoid_id_r in H0.
         rewrite H0 in H ; discriminate.
         destruct l ; simpl ; auto.
         destruct (view_L mid) ; simpl ; auto.
-        program_simpl ; assumption.
       Qed.
 
     End Trees.
@@ -1340,11 +1337,6 @@ match type of IHt with
               (Some (Two x y), z, None)
       end.
 
-      Solve Obligations using program_simpl ; intros ;
-        try subst l x r ; try subst l x0 r ;
-          split ; try splitTac ; auto ;
-            destruct n ; program_simpl ;
-              inversion Heq_n ; clear Heq_n H ; try subst ; simpl ; monoid_tac ; auto.
       (* end hide *)
     End Nodes.
 
@@ -1445,40 +1437,29 @@ match type of IHt with
         destruct_conjs.
         simpl_JMeq.
         autoinjections.
-        destruct H2 ; [left | right] ; auto.
+        destruct o1 ; [left | right] ; auto.
         rewrite H1 ; simpl. split.
-      Qed.
-      
+      Qed.      
+
       Next Obligation.
       Proof.
         destruct (split_digit measure p i pr0). program_simpl.
-        destruct_conjs ; simpl_JMeq. subst.
-        rewrite H1 in H.
-        destruct H2.
-        subst o0.
-        simpl in *.
+        reverse ; simplify_dep_elim.
+        rewrite e in H.
+        destruct o2. subst. simpl in *.
         unfold option_digit_measure in *.
         simpl in H ; monoid_tac_in H ; auto.
-        destruct H3 ; [subst ; simpl in * ; monoid_tac_in H|idtac].
+        destruct o1 ; [subst ; simpl in * ; monoid_tac_in H|idtac].
         simpl in * ; right ; auto.
-        monoid_tac ; assumption.
-        right ; monoid_tac ; auto.
-        monoid_tac_in H2 ; auto.
-        
-        unfold option_digit_measure.
-        destruct H3. 
-        subst.
-        unfold digit_measure.
-        simpl in H ; monoid_tac_in H.
-        right ; auto.
-        right ; monoid_tac_in H3 ; monoid_tac ; auto.
+        simpl in * ; right ; auto.
       Qed.
-      
+
       Next Obligation.
+      Proof.
         destruct (split_digit measure p i pr0) ; program_simpl.
         destruct_conjs.
         autoinjections.
-        unfold digit_measure in * ; rewrite H1.
+        unfold digit_measure in * ; rewrite e.
         monoid_tac ; auto.
       Qed.
 
@@ -1494,30 +1475,59 @@ match type of IHt with
         program_simpl ; assumption.
       Qed.
 
-      Obligation Tactic := idtac.
+      Next Obligation.
+      Proof.
+        destruct (split_digit measure p
+          ((i cdot digit_measure measure pr0) cdot smid) sf).
+        destruct x0 ; simpl in * ; program_simpl.
+        right.
+        destruct_pairs.
+        unfold option_digit_measure in *.
+        destruct H3 as [H3|H3] ; subst ; try monoid_tac_in H3 ; auto.
+        simpl in H2; monoid_tac_in H2.
+        simpl ; monoid_tac.
+        monoid_tac_in H0 ; auto.
+      Qed.
+      
+      Next Obligation.
+      Proof.
+        destruct (split_digit measure p
+          ((i cdot digit_measure measure pr0) cdot smid) sf).
+        destruct x0 ; simpl in * ; program_simpl.
+        monoid_tac.
+        destruct_pairs.
+        destruct H4 as [H4|H4] ; subst ; try monoid_tac_in H4 ; auto.
+        left ; simpl. split.
+      Qed.
 
       Next Obligation.
       Proof.
-        intros. subst filtered_var. 
-        clear Heq_anonymous split_tree'. subst filtered_var0 vpr vpm. program_simpl.
-        right.
+        destruct (split_digit measure p
+          ((i cdot digit_measure measure pr0) cdot smid) sf).
+        destruct x0 ; simpl in * ; program_simpl.
+        monoid_tac.
+        do 2 f_equal.
+        rewrite <- H2.
+        auto.
+      Qed.
+
+      Obligation Tactic := idtac.
+
+
+      Next Obligation.
+      Proof.
+        intros. subst filtered_var.
+        clear split_tree' Heq_anonymous. subst filtered_var0 vpr vpm. program_simpl.
         destruct (split_node p ((i cdot digit_measure measure pr0) cdot mls) x).
         simpl in *.
-        destruct x1 ; program_simpl.
-        destruct_pairs.
-        destruct_nondep H2 ; monoid_tac_in H2 ;auto.
-        assert (He:=isEmpty_epsilon _ H7).
-        subst mls.
-        destruct H5 ; monoid_tac_in H5 ; monoid_tac ; auto.
-        subst o0.
-        simpl in * ; monoid_tac ; auto.
-        
-        destruct H5 ; monoid_tac_in H7 ; monoid_tac ; auto.
-        subst o0.
-        simpl in * ; monoid_tac ; auto.
-        
-        monoid_tac_in H5 ; auto.
+        destruct x1 as [[l' x'] r'].
+        inversion Heq_anonymous0 ; subst l x0 r ; clear Heq_anonymous0.
+        monoid_tac.
+        program_simpl ; destruct_pairs.
+        rewrite H4.
+        monoid_tac ; reflexivity.
       Defined.
+
 
       Next Obligation.
       Proof.
@@ -1542,55 +1552,28 @@ match type of IHt with
 
       Next Obligation.
       Proof.
-        intros. subst filtered_var.
-        clear split_tree' Heq_anonymous. subst filtered_var0 vpr vpm. program_simpl.
+        intros. subst filtered_var. 
+        clear Heq_anonymous split_tree'. subst filtered_var0 vpr vpm. program_simpl.
+        right.
         destruct (split_node p ((i cdot digit_measure measure pr0) cdot mls) x).
         simpl in *.
-        destruct x1 as [[l' x'] r'].
-        inversion Heq_anonymous0 ; subst l x0 r ; clear Heq_anonymous0.
-        monoid_tac.
-        program_simpl ; destruct_pairs.
-        rewrite H4.
-        monoid_tac ; reflexivity.
+        destruct x1 ; program_simpl.
+        destruct_pairs.
+        destruct_nondep H2 ; monoid_tac_in H2 ;auto.
+        assert (He:=isEmpty_epsilon _ H7).
+        subst mls.
+        destruct H5 ; monoid_tac_in H5 ; monoid_tac ; auto.
+        subst o0.
+        simpl in * ; monoid_tac ; auto.
+        
+        destruct H5 ; monoid_tac_in H7 ; monoid_tac ; auto.
+        subst o0.
+        simpl in * ; monoid_tac ; auto.
+        
+        monoid_tac_in H5 ; auto.
       Defined.
 
       Obligation Tactic := program_simpl.
-
-      Next Obligation.
-      Proof.
-        destruct (split_digit measure p
-          ((i cdot digit_measure measure pr0) cdot smid) sf).
-        destruct x0 ; simpl in * ; program_simpl.
-        right.
-        destruct_pairs.
-        unfold option_digit_measure in *.
-        destruct H3 as [H3|H3] ; subst ; try monoid_tac_in H3 ; auto.
-        simpl in H2; monoid_tac_in H2.
-        simpl ; monoid_tac.
-        monoid_tac_in H0 ; auto.
-      Qed.
-
-      Next Obligation.
-      Proof.
-        destruct (split_digit measure p
-          ((i cdot digit_measure measure pr0) cdot smid) sf).
-        destruct x0 ; simpl in * ; program_simpl.
-        monoid_tac.
-        destruct_pairs.
-        destruct H4 as [H4|H4] ; subst ; try monoid_tac_in H4 ; auto.
-        left ; simpl. split.
-      Qed.
-
-      Next Obligation.
-      Proof.
-        destruct (split_digit measure p
-          ((i cdot digit_measure measure pr0) cdot smid) sf).
-        destruct x0 ; simpl in * ; program_simpl.
-        monoid_tac.
-        do 2 f_equal.
-        rewrite <- H2.
-        auto.
-      Qed.
 
       Program Definition split_tree (A : Type) (measure : A -> v)
         (i s : v) (t : fingertree measure s | ~ isEmpty t) :

@@ -1,7 +1,7 @@
 (* -*- coq-prog-args: ("-emacs-U" "-R" "." "FingerTree" "-R" "../safe" " "-R" "../monads" " "-debug") -*- *)
 Require Import Coq.Program.Program.
 Require Import Coq.Bool.Bool.
-Require Export Coq.FSets.OrderedType.
+Require Export Coq.Structures.OrderedType.
 (* beware: exports SetoidList too *)
 
 Set Implicit Arguments.

@@ -6,7 +6,7 @@ Require Import FingerTree.FingerTree.
 Require Import Coq.Program.Program.
 Require Import Arith.
 
-Require Import Coq.FSets.OrderedType.
+Require Import Coq.Structures.OrderedType.
 
 Set Implicit Arguments.
 
@@ -28,7 +28,7 @@ Module PrioMonoid(O : OrderedType).
     unfold ltb.
     destruct (lt_dec x y) ; destruct (lt_dec y z) ; simpl ; program_simpl ; auto.
     destruct (lt_dec x z) ; destruct (lt_dec x y) ; simpl ; program_simpl ; auto ; try contradiction.
-    false_order.
+    order.
     destruct (lt_dec x y) ; program_simpl ; try contradiction ; auto.
     destruct (lt_dec x z).
     program_simpl ; pose (le_lt_trans n l) ; contradiction.
@@ -61,14 +61,13 @@ Module PrioMonoid(O : OrderedType).
     { mempty := Infinity ; mappend := op }.
 
     Next Obligation.
-    Proof. red.
+    Proof. 
       unfold op ; intros.
       destruct x ; reflexivity.
     Defined.
     
     Next Obligation.
     Proof.
-      red.
       destruct x ; simpl ; auto.
       destruct y ; simpl ; auto.
       destruct z ; simpl ; auto.

@@ -123,7 +123,7 @@ Module OrdSequence(AO : OrderedType).
   Qed.
 
   Next Obligation.
-  Proof. auto with arith. Defined.
+  Proof. apply measure_wf. auto with *. Defined.
 
 End OrdSequence.
 

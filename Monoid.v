@@ -12,6 +12,8 @@ Require Export Coq.Program.Basics Program.
    toutes les définitions à l'intérieur de celle-ci sont automatiquement généralisées par rapport 
    aux variables de section qu'elles utilisent. *)
 
+Global Generalizable Variables m v A.
+
 Section Monoid_Laws.
 
   (** Le support du monoïde [m] peut être n'importe quel type. *)

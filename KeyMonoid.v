@@ -1,4 +1,4 @@
-Require Import Monoid.
+Require Import FingerTree.Monoid.
 Require Import Coq.Program.Program.
 Require Import FingerTree.OrderedType.
 
@@ -18,12 +18,12 @@ Module KeyMonoid(O : OrderedType).
     { mempty := None ; mappend := monop }.
 
     Next Obligation.
-    Proof. red.
+    Proof. 
       destruct x ; reflexivity.
     Defined.
     
     Next Obligation.
-    Proof. red.
+    Proof. 
       destruct x ; destruct y ; destruct z ; reflexivity.
     Defined.
     

@@ -2,11 +2,10 @@
 Require Import List.
 Require Import FingerTree.Monoid.
 Require Import FingerTree.DependentFingerTree.
-Require Import Coq.Program.Program.
+Require Import Coq.Program.Program Coq.Program.Equality.
 Implicit Type v A : Type.
 Set Implicit Arguments.
 
-Print fingertree. 
 Implicit Arguments fingertree [[mono] [ma]].
 (* end hide *)
 (** printing lparr $\coqdoublebar$ *)(** printing rparr $\coqdoublebar$ *)(** printing cdot $\cdot$ *)(** printing epsilon $\varepsilon$ *)(** printing +:+ $\treeapp$ *)(** printing ++ $\app$ *)(** printing := $\coloneqq$ *)(** printing :> $\Yright$ *)(** printing < $<$ *)(** printing > $>$ *)

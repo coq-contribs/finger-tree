@@ -1,8 +1,8 @@
-(* -*- coq-prog-args: ("-emacs-U" "-R" "." "FingerTree" "-R" "../../safe" "Safe" "-R" "../../monads" "Monad"); compile-command: "cd .. && ./makedoc.sh" -*- *)
+(* -*- compile-command: "cd .. && ./makedoc.sh" -*- *)
 (* begin hide *)
 Require Import FingerTree.Modules.
 Require Import FingerTree.DependentFingerTreeModule.
-Require Import Coq.Program.Program.
+Require Import Coq.Program.Program Coq.Program.Equality.
 Implicit Type v A : Type.
 Set Implicit Arguments.
 (* end hide *)
@@ -107,7 +107,7 @@ Module FingerTree(M : Monoid) (Ms : Measured with Module Mon := M).
     pose (view_L_size_measure f Heqvf).
     inversion H.
     subst.
-    assert(Hi:=inj_pairT2 H3).
+    assert(Hi:=inj_pair2 H3).
     subst f0.
     simpl.
     omega.

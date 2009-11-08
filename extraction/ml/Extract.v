@@ -5,10 +5,8 @@ Require Import FingerTree.RopeModule.
 Require Import Coq.Program.Program.
 
 (* Unboxing of tuples. *) 
-Extract Inductive prod => "pair" [ " " ].
-Axiom pair : Type -> Type -> Type.
-Extract Constant pair "'a" "'b" => " 'a * 'b ".
-Extract Inductive sigT => "pair" [ " " ].
+Extract Inductive prod => "(*)"  [ "(,)" ].
+Extract Inductive sigT => "(*)" [ " " ].
 
 (* sumbools are bools *)
 Require Import Sumbool.
