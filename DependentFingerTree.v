@@ -248,8 +248,7 @@ Section DependentFingerTree.
 
     Next Obligation.
     Proof.
-      intros. clear_subset_proofs. subst x.
-      unfold digit_measure, Digit.digit_measure ; simpl.
+      clear_subset_proofs. 
       destruct pr ; simpl ; auto ;
       try subst x ; try clear Heq_t ; try subst s ; monoid_tac ; auto ;
       unfold measure, digit_measure, Digit.digit_measure ; simpl ; monoid_tac ; auto.
@@ -328,7 +327,7 @@ Section DependentFingerTree.
         | Node3 x y z _ => size x + size y + size z
       end.
 
-    Fixpoint tree_size' `{mv :! Measured v A} (size : A -> nat) (s : v) 
+    Fixpoint tree_size' `{mv :! Measured v A} (size : A -> nat) {s : v}
       (t : fingertree A s) : nat :=
       match t with
         | Empty => 0

@@ -5,13 +5,13 @@ Require Import Coq.Numbers.Natural.Abstract.NSub.
 Require Import Coq.Numbers.Natural.Abstract.NAxioms.
 
 Module NatPack(Export NAxioms : NAxiomsSig).
-  Open Scope NatScope.
+  Open Scope NumScope.
   
   Module Props := NBasePropFunct NAxioms.
   Export Props.
 
-  Definition below i := { x : N | x < i }.
-  Definition upto i := { x : N | x <= i }.
+  Definition below i := { x : t | x < i }.
+  Definition upto i := { x : t | x <= i }.
 
 End NatPack.
   
@@ -20,13 +20,13 @@ Module Type String.
 
   Module Nats := NatPack NAxioms.
   Import Nats.
-  Open Local Scope NatScope.
+  Open Local Scope NumScope.
 
   Parameter char : Type.
   
   Parameter t : Type.
 
-  Parameter length : t -> N.
+  Parameter length : t -> NAxioms.t.
 
   Parameter sub : forall (str : t) (offset : below (length str))
     (len : below (length str - `offset)), t.
@@ -47,10 +47,10 @@ Module SubString(S : String).
   Module NSub := NSubPropFunct NAxioms.
   Import NSub.
 
-  Open Local Scope NatScope.
+  Open Local Scope NumScope.
 
   Record substring : Type := mkSubStr
-    { string : t;
+    { string : S.t;
       offset : below (length string);
       length : upto (length string - `offset) }.
 
