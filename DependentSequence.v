@@ -530,7 +530,9 @@ Section DependentSequence.
     destruct or Hl ; [ isEmpty_tac Hl | poses Hl'' (lt_complete_conv Hl) ; clear Hl] ;
       (destruct or Hr ; [ isEmpty_tac Hr | poses Hr'' (lt_complete Hr) ; clear Hr]) ; omega.
   Qed.
-    
+
+Hint Extern 4 => contradiction : exfalso.
+
   Next Obligation.
   Proof.
     clear  Heq_anonymous0.
@@ -553,7 +555,7 @@ Section DependentSequence.
     apply (@subsetT_eq_compat _ (fun i => fun n => n < i) _ _ A (@eq_refl _ ls)).
     simpl ; intros. 
     unfold compose ; simpl.
-    elim (less_than z ls) ; intros ; simpl ; auto.
+    elim (less_than z ls) ; intros ; simpl ; auto with exfalso.
     f_equal ; simpl ; auto. 
     apply <- subset_eq ; auto.
 

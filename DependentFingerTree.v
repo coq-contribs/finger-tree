@@ -831,10 +831,10 @@ Section DependentFingerTree.
     Lemma isEmpty_ε : forall `{ma :! Measured v A} (s : v) (t : fingertree A s), 
       isEmpty t -> s = ε.
     Proof.
-      intros; induction t ; simpl ; auto.
-      unfold isEmpty in H ; simpl in H ; auto. 
-      destruct l ; simpl ; auto ; try contradiction.
-      program_simpl ; destruct (view_L t) ; simpl ; try contradiction.
+      intros; induction t ; simpl in * ; auto with exfalso.
+      unfold isEmpty in H ; simpl in H.
+      destruct l ; simpl ; auto ; try contradiction. 
+      program_simpl ; destruct (view_L t) ; simpl in * ; try contradiction.
     Qed.
     
     Lemma not_isEmpty_Deep : forall `{ma :! Measured v A} pr sm 
@@ -1256,46 +1256,40 @@ Section DependentFingerTree.
       Qed.
 
 Unset Dependent Propositions Elimination.
+      Ltac monoid_tac_in H := autorewrite with monoid in H.
 
       Next Obligation.
       Proof.
         destruct (split_digit p i pr0) ; program_simpl.
         destruct_conjs.
-        simpl_JMeq.
-        subst t.
-        destruct o1 ; [left | right] ; auto.
-        rewrite H1 ; constructor.
+        simpl_JMeq. subst t.
+        destruct H3 ; [left | right] ; auto.
+        rewrite H3 ; constructor.
       Qed.
+      
+      Hint Extern 4 => discriminate : exfalso.
 
-      Ltac monoid_tac_in H := autorewrite with monoid in H.
+      Next Obligation.
+      Proof.
+        change (p (i ∙ lparr pr0 rparr) = true) in H. right.
+        destruct (split_digit p i pr0) ; program_simpl.
+        destruct_conjs ; simpl_JMeq ; autoinjections.
+        destruct o0. destruct H3 ; auto with exfalso. 
+        destruct o. destruct H4 ; auto with exfalso. 
+        rewrite H1 in H. 
+        simpl in H. autorewrite with monoid in H ; auto.
+
+        destruct o. destruct H4; auto with exfalso.
+        rewrite H1 in H. monoid_tac_in H. monoid_tac. assumption.
+      Qed.
       
       Next Obligation.
       Proof.
         destruct (split_digit p i pr0) ; program_simpl.
         destruct_conjs ; simpl_JMeq ; autoinjections.
-        destruct o1. subst o0.
-        simpl in *.
-        unfold measure, digit_measure in *.
-        rewrite e in H.
-        simpl in H. autorewrite with monoid in H ; auto.
-        destruct o2 ; [subst ; simpl in * ; monoid_tac_in H|idtac].
-        simpl in * ; right ; auto.
-        monoid_tac ; assumption.
-        right ; monoid_tac ; auto.
-        autorewrite with monoid in H1. assumption.
-        
-        unfold measure.
-        destruct o2; subst.
-        unfold digit_measure, measure in * ; rewrite e in H.
-        simpl in H ; monoid_tac_in H.
-        right ; auto.
-        right ; autorewrite with monoid in e ; monoid_tac ; auto.
-      Qed.
-      
-      Next Obligation.
-        destruct (split_digit p i pr0) ; program_simpl.
-        simpl in e. rewrite e. monoid_tac.
-        reflexivity.
+        change (digit_reducel (λ (i : v) (a : A), i ∙ lparr a rparr) ε pr0) with (lparr pr0 rparr) in *.
+        rewrite H1 in H. rewrite <- monoid_assoc. rewrite <- monoid_assoc. f_equal.
+        rewrite H1. rewrite monoid_assoc. reflexivity.
       Qed.
 
       Next Obligation.
@@ -1332,7 +1326,6 @@ Unset Dependent Propositions Elimination.
         simpl ; monoid_tac.
         monoid_tac_in H0 ; auto.
       Qed.
-
 
       Next Obligation.
       Proof.

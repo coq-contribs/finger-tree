@@ -920,7 +920,7 @@ match type of IHt with
    Lemma isEmpty_epsilon : forall (A : Type) (measure : A -> v) (s : v) (t : fingertree measure s), 
       isEmpty t -> s = epsilon.
     Proof.
-      intros; induction t; simpl; auto.
+      intros; induction t; simpl; auto with exfalso.
       unfold isEmpty in H ; simpl in H ; auto.
       destruct l ; simpl ; auto ; try contradiction.
       program_simpl ; destruct (view_L t) ; simpl ; try contradiction.
@@ -1227,8 +1227,6 @@ match type of IHt with
                   if dec (p i'') then (i', y)
                   else (i'', z)
         end.
-    
-      Solve Obligations using  program_simpl ; intuition ; simpl in * ; subst ; simpl_monoid ; auto.
 
     End Nodes.
 
@@ -1277,7 +1275,7 @@ match type of IHt with
         intros.
         simpl_JMeq.
         subst.
-        destruct mid ; unfold isEmpty in H2 ; simpl in H2 ; program_simpl ; auto.
+        destruct mid ; unfold isEmpty in H4 ; simpl in H4 ; try elim H4; program_simpl ; auto.
         rewrite monoid_id_r in H0.
         rewrite H0 in H ; discriminate.
         destruct l ; simpl ; auto.
@@ -1434,33 +1432,27 @@ match type of IHt with
       Next Obligation.
       Proof.
         destruct (split_digit measure p i pr0) ; program_simpl.
-        destruct_conjs.
-        simpl_JMeq.
-        autoinjections.
-        destruct o1 ; [left | right] ; auto.
+        destruct_conjs. simpl_JMeq. autoinjections.
+        destruct H2 ; [left | right] ; auto.
         rewrite H1 ; simpl. split.
-      Qed.      
+      Qed.
 
       Next Obligation.
       Proof.
         destruct (split_digit measure p i pr0). program_simpl.
         reverse ; simplify_dep_elim.
-        rewrite e in H.
-        destruct o2. subst. simpl in *.
+        rewrite H1 in H.
+        destruct H2. subst. simpl in *.
         unfold option_digit_measure in *.
         simpl in H ; monoid_tac_in H ; auto.
-        destruct o1 ; [subst ; simpl in * ; monoid_tac_in H|idtac].
-        simpl in * ; right ; auto.
-        simpl in * ; right ; auto.
+        destruct H3; auto. subst. monoid_tac_in H. right. now monoid_tac.
+        destruct H3; auto. subst. monoid_tac_in H. right. now monoid_tac.
       Qed.
 
       Next Obligation.
       Proof.
-        destruct (split_digit measure p i pr0) ; program_simpl.
-        destruct_conjs.
-        autoinjections.
-        unfold digit_measure in * ; rewrite e.
-        monoid_tac ; auto.
+        destruct (split_digit measure p i pr0) ; program_simpl. 
+        rewrite H1. monoid_tac. reflexivity.
       Qed.
 
       Next Obligation.
@@ -1513,7 +1505,6 @@ match type of IHt with
 
       Obligation Tactic := idtac.
 
-
       Next Obligation.
       Proof.
         intros. subst filtered_var.
@@ -1527,7 +1518,6 @@ match type of IHt with
         rewrite H4.
         monoid_tac ; reflexivity.
       Defined.
-
 
       Next Obligation.
       Proof.
