@@ -122,7 +122,7 @@ GFILES:=$(VFILES:.v=.g)
 HTMLFILES:=$(VFILES:.v=.html)
 GHTMLFILES:=$(VFILES:.v=.g.html)
 
-all: $(VOFILES) extraction/ml/Extract.v\
+all: $(VOFILES) extraction/ml/Extract.vo\
   extraction
 spec: $(VIFILES)
 
@@ -156,7 +156,7 @@ all-gal.pdf: $(VFILES)
 #                 #
 ###################
 
-extraction/ml/Extract.v: extraction/ml/Extract.v
+extraction/ml/Extract.vo: extraction/ml/Extract.v
 	cd extraction/ml/; $(COQC) -q -opt -R ../.. FingerTree Extract.v
 
 ###################
@@ -209,7 +209,8 @@ opt:
 install:
 	mkdir -p $(COQLIB)/user-contrib
 	(for i in $(VOFILES); do \
-	 install -D $$i $(COQLIB)/user-contrib/FingerTree/$$i; \
+	 install -d `dirname $(COQLIB)/user-contrib/FingerTree/$$i`; \
+	 install $$i $(COQLIB)/user-contrib/FingerTree/$$i; \
 	 done)
 	(cd extraction; $(MAKE) INSTALLDEFAULTROOT=$(INSTALLDEFAULTROOT)/extraction install)
 
@@ -217,7 +218,7 @@ clean:
 	rm -f $(CMOFILES) $(CMIFILES) $(CMXFILES) $(CMXSFILES) $(OFILES) $(VOFILES) $(VIFILES) $(GFILES) $(MLFILES:.ml=.cmo) $(MLFILES:.ml=.cmx) *~
 	rm -f all.ps all-gal.ps all.pdf all-gal.pdf all.glob $(VFILES:.v=.glob) $(HTMLFILES) $(GHTMLFILES) $(VFILES:.v=.tex) $(VFILES:.v=.g.tex) $(VFILES:.v=.v.d)
 	- rm -rf html
-	- rm -f extraction/ml/Extract.v
+	- rm -f extraction/ml/Extract.vo
 	(cd extraction ; $(MAKE) clean)
 
 archclean:

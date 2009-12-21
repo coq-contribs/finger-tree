@@ -1,8 +1,7 @@
 OCAMLMAKEFILE = OCamlMakefile
 SOURCEMODULES = datatypes logic   peano specif sumbool \
 	digitModule dependentFingerTreeModule fingerTreeModule \
-	nZBase nZAdd nZMul nZOrder nZAddOrder nZMulOrder \
-	nBase nAdd nMul nOrder nAddOrder nMulOrder nSub \
+	nBase nSub \
 	stringInterface ropeModule
 
 SOURCES = ${SOURCEMODULES:=.mli} ${SOURCEMODULES:=.ml}
