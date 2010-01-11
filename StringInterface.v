@@ -1,12 +1,11 @@
 Set Implicit Arguments.
 Require Import Coq.Program.Program.
 Require Import Coq.Numbers.Natural.Abstract.NBase.
-Require Import Coq.Numbers.Natural.Abstract.NSub.
+Require Import Coq.Numbers.Natural.Abstract.NProperties.
 Require Import Coq.Numbers.Natural.Abstract.NAxioms.
 
-Module NatPack(Export NAxioms : NAxiomsSig).
-  Open Scope NumScope.
-  
+Module NatPack(Export NAxioms : NAxiomsSig').
+
   Module Props := NBasePropFunct NAxioms.
   Export Props.
 
@@ -14,16 +13,15 @@ Module NatPack(Export NAxioms : NAxiomsSig).
   Definition upto i := { x : t | x <= i }.
 
 End NatPack.
-  
-Module Type String. 
-  Declare Module NAxioms : NAxiomsSig.
+
+Module Type String.
+  Declare Module NAxioms : NAxiomsSig'.
 
   Module Nats := NatPack NAxioms.
   Import Nats.
-  Open Local Scope NumScope.
 
   Parameter char : Type.
-  
+
   Parameter t : Type.
 
   Parameter length : t -> NAxioms.t.
@@ -44,10 +42,8 @@ Module SubString(S : String).
   Import Nats.
   Import Props.
 
-  Module NSub := NSubPropFunct NAxioms.
+  Module NSub := NPropFunct NAxioms.
   Import NSub.
-
-  Open Local Scope NumScope.
 
   Record substring : Type := mkSubStr
     { string : S.t;
