@@ -18,12 +18,12 @@ Module KeyMonoid(O : OrderedType).
     { mempty := None ; mappend := monop }.
 
     Next Obligation.
-    Proof. 
+    Proof. red.
       destruct x ; reflexivity.
     Defined.
     
     Next Obligation.
-    Proof. 
+    Proof. red.
       destruct x ; destruct y ; destruct z ; reflexivity.
     Defined.
     
@@ -41,5 +41,3 @@ Module KeyMonoid(O : OrderedType).
   Definition v := key.
   Definition m := key_monoid.
 End KeyMonoid.
-
-

@@ -1260,7 +1260,7 @@ Unset Dependent Propositions Elimination.
 
       Next Obligation.
       Proof.
-        destruct (split_digit p i pr0) ; program_simpl.
+        destruct_call split_digit. program_simpl.
         destruct_conjs.
         simpl_JMeq. subst t.
         destruct H3 ; [left | right] ; auto.
@@ -1272,7 +1272,7 @@ Unset Dependent Propositions Elimination.
       Next Obligation.
       Proof.
         change (p (i ∙ lparr pr0 rparr) = true) in H. right.
-        destruct (split_digit p i pr0) ; program_simpl.
+        destruct_call split_digit ; program_simpl.
         destruct_conjs ; simpl_JMeq ; autoinjections.
         destruct o0. destruct H3 ; auto with exfalso. 
         destruct o. destruct H4 ; auto with exfalso. 
@@ -1285,7 +1285,7 @@ Unset Dependent Propositions Elimination.
       
       Next Obligation.
       Proof.
-        destruct (split_digit p i pr0) ; program_simpl.
+        destruct_call split_digit ; program_simpl.
         destruct_conjs ; simpl_JMeq ; autoinjections.
         change (digit_reducel (λ (i : v) (a : A), i ∙ lparr a rparr) ε pr0) with (lparr pr0 rparr) in *.
         rewrite H1 in H. rewrite <- monoid_assoc. rewrite <- monoid_assoc. f_equal.
@@ -1318,7 +1318,7 @@ Unset Dependent Propositions Elimination.
         
       Next Obligation.
       Proof.
-        destruct (split_digit p ((i ∙ measure pr0) ∙ smid) sf).
+        destruct_call split_digit.
         simpl in *. subst x0 ; program_simpl.
         right.
         destruct H4 as [H4|H4] ; subst ; try monoid_tac_in H4 ; auto.
@@ -1329,8 +1329,8 @@ Unset Dependent Propositions Elimination.
 
       Next Obligation.
       Proof.
-        destruct (split_digit p ((i ∙ measure pr0) ∙ smid) sf).
-        simpl in *. subst x0 ; simpl in * ; program_simpl.
+        destruct_call split_digit as [ [[l' x'] r'] ].
+        simpl in *. program_simpl.
         monoid_tac.
         destruct_pairs.
         destruct H5 as [H5|H5] ; subst ; try monoid_tac_in H5 ; auto.
@@ -1339,15 +1339,15 @@ Unset Dependent Propositions Elimination.
 
       Next Obligation.
       Proof.
-        destruct (split_digit p ((i ∙ measure pr0) ∙ smid) sf).
-        destruct x0 ; simpl in * ; program_simpl.
+        destruct_call split_digit as [ [ [ l' x' ] r' ] ]. 
+        simpl in * ; program_simpl.
         monoid_tac. rewrite H2. auto.
       Qed.
 
       Next Obligation.
       Proof.
         clear Heq_anonymous.
-        destruct (split_node p ((i ∙ measure pr0) ∙ mls) x).
+        destruct_call split_node.
         simpl in * ; subst x1.
         monoid_tac.
         program_simpl ; destruct_pairs.
@@ -1359,7 +1359,7 @@ Unset Dependent Propositions Elimination.
       Proof.
         clear Heq_anonymous split_tree'.
         right.
-        destruct (split_node p ((i ∙ measure pr0) ∙ mls) x).
+        destruct_call split_node.
         simpl in *. subst x1 ; program_simpl.
         simpl_JMeq ; subst ; monoid_tac.
         destruct H7 ; monoid_tac_in H7 ; auto.

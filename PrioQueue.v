@@ -61,13 +61,13 @@ Module PrioMonoid(O : OrderedType).
     { mempty := Infinity ; mappend := op }.
 
     Next Obligation.
-    Proof. 
+    Proof. red.
       unfold op ; intros.
       destruct x ; reflexivity.
     Defined.
     
     Next Obligation.
-    Proof.
+    Proof. red.
       destruct x ; simpl ; auto.
       destruct y ; simpl ; auto.
       destruct z ; simpl ; auto.

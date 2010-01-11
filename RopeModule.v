@@ -11,8 +11,6 @@ Module Type ROPE.
   Declare Module Str : String.
   Import Str.Nats.
 
-  Open Scope NumScope.
-
   Definition string := Str.t.
   Definition N := Str.NAxioms.t.
 
@@ -34,9 +32,10 @@ Require Import Coq.Numbers.Natural.Abstract.NDefOps.
 
 Require Import Coq.Numbers.NatInt.NZAxioms.
     
-Module Rope(NZA : NAxiomsSig with Definition t := nat with
-  Definition eq := @eq nat)
-  (S : String with Module NAxioms := NZA) : ROPE.
+Module Rope(Export NAxioms : NAxiomsSig' with 
+  Definition t := nat
+    with Definition eq := @eq nat)
+  (S : String with Module NAxioms := NAxioms) : ROPE.
 
   Module Str := S.
   Import S.
@@ -48,10 +47,8 @@ Module Rope(NZA : NAxiomsSig with Definition t := nat with
   Import S.Nats.Props.
   Module Ops :=  NdefOpsPropFunct NAxioms.
 
-  Open Scope NumScope.
-
   Definition string := Str.t.
-  Definition N := NZA.t.
+  Definition N := NAxioms.t.
   
   Lemma not_below_0 : below 0 -> False.
   Proof.
@@ -70,15 +67,14 @@ Module Rope(NZA : NAxiomsSig with Definition t := nat with
   Module PlusMonoid <: Monoid.
 
     Definition m := N.
-    Definition mempty := 0.
+    Definition mempty := zero.
     Definition mappend := add.
 
     Definition monoid_id_l := add_0_l.
     Definition monoid_id_r := add_0_r.
     Lemma monoid_assoc : Monoid.monoid_assoc_t _ add.
     Proof.
-      red ; intros.
-      symmetry.
+      red ; intros. symmetry.
       apply add_assoc.
     Qed.
 
@@ -120,9 +116,6 @@ Module Rope(NZA : NAxiomsSig with Definition t := nat with
   Ltac forward t := 
     let H := fresh "H" in assert(H:=t).
 
-  (* Works, but Naturals has changed once more ... *)
-  (* Admit Obligations. *)
-
   Next Obligation.
   Proof.
     intros.
@@ -157,7 +150,7 @@ Module Rope(NZA : NAxiomsSig with Definition t := nat with
     clear Heq_anonymous. subst.
     unfold PlusMonoid.mappend in *. unfold measure in y. simpl in y.
     destruct y. rewrite Ops.ltb_lt in *.
-    assert(start + len <= S.length s). admit.
+    assert(start + len <= S.length s). red. admit.
     assert(i - v0 < len). admit.
     admit.
   Qed.
@@ -165,4 +158,3 @@ Module Rope(NZA : NAxiomsSig with Definition t := nat with
   Definition app := cat.
 
 End Rope.
-
