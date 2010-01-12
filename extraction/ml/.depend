@@ -8,10 +8,9 @@ dependentFingerTreeModule.cmi: specif.cmi peano.cmi logic.cmi digitModule.cmi \
     datatypes.cmi 
 fingerTreeModule.cmi: specif.cmi peano.cmi digitModule.cmi \
     dependentFingerTreeModule.cmi datatypes.cmi 
-nBase.cmi: ordersTac.cmi 
-orderTac.cmi: 
 orders.cmi: datatypes.cmi 
-nSub.cmi: orderTac.cmi 
+ordersTac.cmi: orders.cmi datatypes.cmi 
+nBase.cmi: ordersTac.cmi 
 stringInterface.cmi: specif.cmi nProperties.cmi nBase.cmi 
 ropeModule.cmi: stringInterface.cmi specif.cmi nProperties.cmi nDefOps.cmi \
     fingerTreeModule.cmi digitModule.cmi datatypes.cmi 
@@ -35,14 +34,12 @@ fingerTreeModule.cmo: specif.cmi peano.cmi digitModule.cmi \
     dependentFingerTreeModule.cmi datatypes.cmi fingerTreeModule.cmi 
 fingerTreeModule.cmx: specif.cmx peano.cmx digitModule.cmx \
     dependentFingerTreeModule.cmx datatypes.cmx fingerTreeModule.cmi 
-nBase.cmo: ordersTac.cmi nBase.cmi 
-nBase.cmx: ordersTac.cmx nBase.cmi 
-orderTac.cmo: orderTac.cmi 
-orderTac.cmx: orderTac.cmi 
 orders.cmo: datatypes.cmi orders.cmi 
 orders.cmx: datatypes.cmx orders.cmi 
-nSub.cmo: orderTac.cmi nSub.cmi 
-nSub.cmx: orderTac.cmx nSub.cmi 
+ordersTac.cmo: orders.cmi datatypes.cmi ordersTac.cmi 
+ordersTac.cmx: orders.cmx datatypes.cmx ordersTac.cmi 
+nBase.cmo: ordersTac.cmi nBase.cmi 
+nBase.cmx: ordersTac.cmx nBase.cmi 
 stringInterface.cmo: specif.cmi nProperties.cmi nBase.cmi stringInterface.cmi 
 stringInterface.cmx: specif.cmx nProperties.cmx nBase.cmx stringInterface.cmi 
 ropeModule.cmo: stringInterface.cmi specif.cmi nProperties.cmi nDefOps.cmi \

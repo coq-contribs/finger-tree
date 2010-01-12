@@ -149,10 +149,10 @@ Module Rope(Export NAxioms : NAxiomsSig' with
     destruct x... injection Heq_anonymous. intros.
     clear Heq_anonymous. subst.
     unfold PlusMonoid.mappend in *. unfold measure in y. simpl in y.
-    destruct y. rewrite Ops.ltb_lt in *.
-    assert(start + len <= S.length s). red. admit.
-    assert(i - v0 < len). admit.
-    admit.
+    destruct y. rewrite Ops.ltb_lt, Ops.ltb_ge in *.
+    rewrite lt_add_lt_sub_l.
+    apply lt_le_trans with len; auto.
+    rewrite (add_lt_mono_r _ _ v0), sub_add, add_comm; auto.
   Qed.
 
   Definition app := cat.
