@@ -186,47 +186,47 @@ NCRESULT  := $(addsuffix $(NCSUFFIX), $(RESULT))
 TOPRESULT := $(addsuffix $(TOPSUFFIX), $(RESULT))
 
 ifndef OCAMLFIND
-  OCAMLFIND := ocamlfind
+  OCAMLFIND := $(CAMLBIN)ocamlfind
 endif
 export OCAMLFIND
 
 ifndef OCAMLC
-  OCAMLC := ocamlc
+  OCAMLC := $(CAMLBIN)ocamlc
 endif
 export OCAMLC
 
 ifndef OCAMLOPT
-  OCAMLOPT := ocamlopt
+  OCAMLOPT := $(CAMLBIN)ocamlopt
 endif
 export OCAMLOPT
 
 ifndef OCAMLMKTOP
-  OCAMLMKTOP := ocamlmktop
+  OCAMLMKTOP := $(CAMLBIN)ocamlmktop
 endif
 export OCAMLMKTOP
 
 ifndef OCAMLCP
-  OCAMLCP := ocamlcp
+  OCAMLCP := $(CAMLBIN)ocamlcp
 endif
 export OCAMLCP
 
 ifndef OCAMLDEP
-  OCAMLDEP := ocamldep
+  OCAMLDEP := $(CAMLBIN)ocamldep
 endif
 export OCAMLDEP
 
 ifndef OCAMLLEX
-  OCAMLLEX := ocamllex
+  OCAMLLEX := $(CAMLBIN)ocamllex
 endif
 export OCAMLLEX
 
 ifndef OCAMLYACC
-  OCAMLYACC := ocamlyacc
+  OCAMLYACC := i$(CAMLBIN)ocamlyacc
 endif
 export OCAMLYACC
 
 ifndef OCAMLMKLIB
-  OCAMLMKLIB := ocamlmklib
+  OCAMLMKLIB := $(CAMLBIN)ocamlmklib
 endif
 export OCAMLMKLIB
 
@@ -283,7 +283,7 @@ export NOIDLHEADER
 export NO_CUSTOM
 
 ifndef CAMLP4
-  CAMLP4 := camlp4
+  CAMLP4 := $(CAMLBIN)camlp4
 endif
 export CAMLP4
 
@@ -319,7 +319,7 @@ export OCAML_FIND_LINKPKG
 export REAL_OCAMLFIND
 
 ifndef OCAMLDOC
-  OCAMLDOC := ocamldoc
+  OCAMLDOC := $(CAMLBIN)ocamldoc
 endif
 export OCAMLDOC
 

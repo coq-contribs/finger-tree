@@ -18,7 +18,7 @@ LIBINSTALL_FILES := $(RESULT).cmi $(RESULT).cma \
 all: depend bcl ncl
 
 depend: ${SOURCES}
-	ocamldep ${SOURCES} > .depend
+	$(CAMLBIN)ocamldep ${SOURCES} > .depend
 
 realclean:
 	rm -f ${SOURCES} Extract.vo
