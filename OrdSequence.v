@@ -122,9 +122,6 @@ Module OrdSequence(AO : OrderedType).
     rewrite (split_size _ _ (sym_eq Heq_anonymous0)). simpl. omega.
   Qed.
 
-  Next Obligation.
-  Proof. apply measure_wf. auto with *. Defined.
-
 End OrdSequence.
 
 (** Tests *)

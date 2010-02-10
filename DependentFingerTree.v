@@ -874,7 +874,7 @@ Section DependentFingerTree.
         program_simpl ; unfold measure ; simpl ; program_simpl ; monoid_tac ; auto.
 
     (* Too long to check interactively (2min) *)
-    
+
     Time Program Fixpoint appendTree0 `{ma :! Measured v A} (xsm : v) (xs : fingertree A xsm)
       (ysm : v) (ys : fingertree A ysm) {struct xs} : fingertree A (xsm ∙ ysm) :=
       match xs in fingertree _ xsm, ys in fingertree _ ysm return fingertree A (xsm ∙ ysm) with
@@ -1232,30 +1232,19 @@ Section DependentFingerTree.
       Solve Obligations.
 
       Next Obligation.
-      Proof.
-        intros.
-        program_simpl.
-        inversion Heq_t.
-        rewrite <- (inj_pair2 H1) in H.
-        simpl in * ; elim H.
-        compute ; auto.
-      Qed.
+      Proof. subst t. apply H; constructor. Qed.
 
       Obligation Tactic := program_simpl.
       Next Obligation.
-      Proof.
-        inversion Heq_t.
-        rewrite <- (inj_pair2 H0) in H.
-        left.
-        compute ; auto.
-      Qed.
+      Proof. subst t. left; constructor. Qed.
       
       Next Obligation.
       Proof.
         left ; compute ; auto.
       Qed.
 
-Unset Dependent Propositions Elimination.
+      Unset Dependent Propositions Elimination.
+
       Ltac monoid_tac_in H := autorewrite with monoid in H.
 
       Next Obligation.
@@ -1315,7 +1304,56 @@ Unset Dependent Propositions Elimination.
       Obligation Tactic := my_simplify.
 
       Opaque measure.
+
+      Next Obligation.
+      Proof.
+        clear split_tree' Heq_anonymous.
+        right.
+        destruct_call split_node in Heq_anonymous0. simpl in *. subst.
+        program_simpl.
+        destruct_nondep H2 ; monoid_tac_in H2 ;auto.
+        assert (He:=isEmpty_ε _ H8).
+        subst mls.
+        destruct H6 ; monoid_tac_in H6 ; monoid_tac ; auto.
+        subst l.
+        simpl in * ; monoid_tac ; auto.
         
+        destruct H6 ; monoid_tac_in H8 ; monoid_tac ; auto.
+        subst l.
+        simpl in * ; monoid_tac ; auto.
+        
+        monoid_tac_in H6 ; auto.
+      Defined.
+
+      Next Obligation.
+      Proof.
+        clear Heq_anonymous split_tree'.
+        right.
+        destruct_call split_node.
+        simpl in *. subst x1 ; program_simpl.
+        simpl_JMeq ; subst ; monoid_tac.
+        destruct H7 ; monoid_tac_in H7 ; auto.
+        rewrite H7 in * ; clear H7.
+        simpl in * ; monoid_tac_in H4.
+        rewrite <- H4.
+        destruct H1.
+        assert (He:=isEmpty_ε _ H1).
+        subst mrs.
+        monoid_tac_in H0 ; auto.
+        rewrite <- H1 ; monoid_tac ; auto.
+      Defined.
+      
+      Next Obligation.
+      Proof.
+        clear Heq_anonymous.
+        destruct_call split_node.
+        simpl in * ; subst x1.
+        monoid_tac.
+        program_simpl ; destruct_pairs.
+        rewrite H4.
+        monoid_tac ; reflexivity.
+      Defined.
+
       Next Obligation.
       Proof.
         destruct_call split_digit.
@@ -1343,55 +1381,6 @@ Unset Dependent Propositions Elimination.
         simpl in * ; program_simpl.
         monoid_tac. rewrite H2. auto.
       Qed.
-
-      Next Obligation.
-      Proof.
-        clear Heq_anonymous.
-        destruct_call split_node.
-        simpl in * ; subst x1.
-        monoid_tac.
-        program_simpl ; destruct_pairs.
-        rewrite H4.
-        monoid_tac ; reflexivity.
-      Defined.
-
-      Next Obligation.
-      Proof.
-        clear Heq_anonymous split_tree'.
-        right.
-        destruct_call split_node.
-        simpl in *. subst x1 ; program_simpl.
-        simpl_JMeq ; subst ; monoid_tac.
-        destruct H7 ; monoid_tac_in H7 ; auto.
-        rewrite H7 in * ; clear H7.
-        simpl in * ; monoid_tac_in H4.
-        rewrite <- H4.
-        destruct H1.
-        assert (He:=isEmpty_ε _ H1).
-        subst mrs.
-        monoid_tac_in H0 ; auto.
-        rewrite <- H1 ; monoid_tac ; auto.
-      Defined.
-
-      Next Obligation.
-      Proof.
-        clear split_tree' Heq_anonymous.
-        right.
-        destruct_call split_node in Heq_anonymous0. simpl in *. subst.
-        program_simpl.
-        destruct_nondep H2 ; monoid_tac_in H2 ;auto.
-        assert (He:=isEmpty_ε _ H8).
-        subst mls.
-        destruct H6 ; monoid_tac_in H6 ; monoid_tac ; auto.
-        subst l.
-        simpl in * ; monoid_tac ; auto.
-        
-        destruct H6 ; monoid_tac_in H8 ; monoid_tac ; auto.
-        subst l.
-        simpl in * ; monoid_tac ; auto.
-        
-        monoid_tac_in H6 ; auto.
-      Defined.
       
       Transparent measure.
       Obligation Tactic := program_simpl.
