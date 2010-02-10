@@ -1467,6 +1467,68 @@ match type of IHt with
         program_simpl ; assumption.
       Qed.
 
+      Obligation Tactic := idtac.
+
+      Next Obligation.
+      Proof.
+        intros. subst filtered_var. 
+        clear Heq_anonymous split_tree'. subst filtered_var0 vpr vpm. program_simpl.
+        right.
+        destruct (split_node p ((i cdot digit_measure measure pr0) cdot mls) x).
+        simpl in *.
+        destruct x1 ; program_simpl.
+        destruct_pairs.
+        destruct_nondep H2 ; monoid_tac_in H2 ;auto.
+        assert (He:=isEmpty_epsilon _ H7).
+        subst mls.
+        destruct H5 ; monoid_tac_in H5 ; monoid_tac ; auto.
+        subst o0.
+        simpl in * ; monoid_tac ; auto.
+        
+        destruct H5 ; monoid_tac_in H7 ; monoid_tac ; auto.
+        subst o0.
+        simpl in * ; monoid_tac ; auto.
+        
+        monoid_tac_in H5 ; auto.
+      Defined.
+
+      Next Obligation.
+      Proof.
+        intros. subst filtered_var.
+        clear Heq_anonymous split_tree'. subst filtered_var0 vpr vpm. program_simpl.
+        right.
+        destruct (split_node p ((i cdot digit_measure measure pr0) cdot mls) x).
+        simpl in *.
+        destruct x1 ; program_simpl.
+        monoid_tac.
+        destruct_pairs.
+        destruct H6 ; monoid_tac_in H6 ;auto.
+        subst o.
+        simpl in * ; monoid_tac_in H4.
+        rewrite <- H4.
+        destruct_nondep H1.
+        assert (He:=isEmpty_epsilon _ H6).
+        subst mrs ; clear H6.
+        monoid_tac_in H0 ; auto.
+        rewrite <- H6 ; monoid_tac ; auto.
+      Defined.
+
+      Next Obligation.
+      Proof.
+        intros. subst filtered_var.
+        clear split_tree' Heq_anonymous. subst filtered_var0 vpr vpm. program_simpl.
+        destruct (split_node p ((i cdot digit_measure measure pr0) cdot mls) x).
+        simpl in *.
+        destruct x1 as [[l' x'] r'].
+        inversion Heq_anonymous0 ; subst l x0 r ; clear Heq_anonymous0.
+        monoid_tac.
+        program_simpl ; destruct_pairs.
+        rewrite H4.
+        monoid_tac ; reflexivity.
+      Defined.
+
+      Obligation Tactic := program_simpl.
+
       Next Obligation.
       Proof.
         destruct (split_digit measure p
@@ -1502,68 +1564,6 @@ match type of IHt with
         rewrite <- H2.
         auto.
       Qed.
-
-      Obligation Tactic := idtac.
-
-      Next Obligation.
-      Proof.
-        intros. subst filtered_var.
-        clear split_tree' Heq_anonymous. subst filtered_var0 vpr vpm. program_simpl.
-        destruct (split_node p ((i cdot digit_measure measure pr0) cdot mls) x).
-        simpl in *.
-        destruct x1 as [[l' x'] r'].
-        inversion Heq_anonymous0 ; subst l x0 r ; clear Heq_anonymous0.
-        monoid_tac.
-        program_simpl ; destruct_pairs.
-        rewrite H4.
-        monoid_tac ; reflexivity.
-      Defined.
-
-      Next Obligation.
-      Proof.
-        intros. subst filtered_var.
-        clear Heq_anonymous split_tree'. subst filtered_var0 vpr vpm. program_simpl.
-        right.
-        destruct (split_node p ((i cdot digit_measure measure pr0) cdot mls) x).
-        simpl in *.
-        destruct x1 ; program_simpl.
-        monoid_tac.
-        destruct_pairs.
-        destruct H6 ; monoid_tac_in H6 ;auto.
-        subst o.
-        simpl in * ; monoid_tac_in H4.
-        rewrite <- H4.
-        destruct_nondep H1.
-        assert (He:=isEmpty_epsilon _ H6).
-        subst mrs ; clear H6.
-        monoid_tac_in H0 ; auto.
-        rewrite <- H6 ; monoid_tac ; auto.
-      Defined.
-
-      Next Obligation.
-      Proof.
-        intros. subst filtered_var. 
-        clear Heq_anonymous split_tree'. subst filtered_var0 vpr vpm. program_simpl.
-        right.
-        destruct (split_node p ((i cdot digit_measure measure pr0) cdot mls) x).
-        simpl in *.
-        destruct x1 ; program_simpl.
-        destruct_pairs.
-        destruct_nondep H2 ; monoid_tac_in H2 ;auto.
-        assert (He:=isEmpty_epsilon _ H7).
-        subst mls.
-        destruct H5 ; monoid_tac_in H5 ; monoid_tac ; auto.
-        subst o0.
-        simpl in * ; monoid_tac ; auto.
-        
-        destruct H5 ; monoid_tac_in H7 ; monoid_tac ; auto.
-        subst o0.
-        simpl in * ; monoid_tac ; auto.
-        
-        monoid_tac_in H5 ; auto.
-      Defined.
-
-      Obligation Tactic := program_simpl.
 
       Program Definition split_tree (A : Type) (measure : A -> v)
         (i s : v) (t : fingertree measure s | ~ isEmpty t) :

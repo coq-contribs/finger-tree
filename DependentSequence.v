@@ -253,8 +253,7 @@ Section DependentSequence.
     intros.
     unfold epsilon, below ; simpl ; auto.
     f_equal.
-    extensionality y.
-    bang.
+    extensionality y. bang.
   Qed.
 
   Next Obligation.
@@ -480,6 +479,37 @@ Section DependentSequence.
     red ; intro He ; isEmpty_tac He ; inversion Hj.
   Qed.
 
+Hint Extern 4 => contradiction : exfalso.
+
+  Next Obligation.
+  Proof.
+    clear Heq_anonymous0.
+    intros.
+    destruct exist j Hj.
+    destruct exist ls lf.
+    destruct exist rs rf.
+    destruct exist l Hl ; destruct exist r Hr.
+    simpl in *.
+    inversion Heq_anonymous ; clear Heq_anonymous.
+    subst i.
+    assert (Hproj:=inj_pairT2 H1).
+    subst m ; clear H1 x.
+
+    unfold apply ; simpl.
+
+    cut (j = ls) ; intros.
+    subst j.
+
+    apply (@subsetT_eq_compat _ (fun i => fun n => n < i) _ _ A (@eq_refl _ ls)).
+    simpl ; intros. 
+    unfold compose ; simpl.
+    elim (less_than z ls) ; intros ; simpl ; auto with exfalso.
+    f_equal ; simpl ; auto. 
+    apply <- subset_eq ; auto.
+
+    destruct or Hl ; [ isEmpty_tac Hl | poses Hl'' (lt_complete_conv Hl) ; clear Hl] ;
+      (destruct or Hr ; [ isEmpty_tac Hr | poses Hr'' (lt_complete Hr) ; clear Hr]) ; omega.
+  Qed.
 
   Next Obligation.
   Proof.
@@ -531,37 +561,6 @@ Section DependentSequence.
       (destruct or Hr ; [ isEmpty_tac Hr | poses Hr'' (lt_complete Hr) ; clear Hr]) ; omega.
   Qed.
 
-Hint Extern 4 => contradiction : exfalso.
-
-  Next Obligation.
-  Proof.
-    clear  Heq_anonymous0.
-    intros.
-    destruct exist j Hj.
-    destruct exist ls lf.
-    destruct exist rs rf.
-    destruct exist l Hl ; destruct exist r Hr.
-    simpl in *.
-    inversion Heq_anonymous ; clear Heq_anonymous.
-    subst i.
-    assert (Hproj:=inj_pairT2 H1).
-    subst m ; clear H1 x.
-
-    unfold apply ; simpl.
-
-    cut (j = ls) ; intros.
-    subst j.
-
-    apply (@subsetT_eq_compat _ (fun i => fun n => n < i) _ _ A (@eq_refl _ ls)).
-    simpl ; intros. 
-    unfold compose ; simpl.
-    elim (less_than z ls) ; intros ; simpl ; auto with exfalso.
-    f_equal ; simpl ; auto. 
-    apply <- subset_eq ; auto.
-
-    destruct or Hl ; [ isEmpty_tac Hl | poses Hl'' (lt_complete_conv Hl) ; clear Hl] ;
-      (destruct or Hr ; [ isEmpty_tac Hr | poses Hr'' (lt_complete Hr) ; clear Hr]) ; omega.
-  Qed.
   (* end hide *)
 
   (** *** Propriétés
