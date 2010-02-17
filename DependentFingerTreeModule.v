@@ -7,6 +7,8 @@ Require Import FingerTree.Modules.
 Require Import FingerTree.DigitModule.
 
 Require Import Coq.Program.Program Coq.Program.Equality.
+Require Import Omega JMeq.
+
 Unset Dependent Propositions Elimination.
 Set Implicit Arguments.
 (** Useful when working with existT equalities. *)
@@ -455,7 +457,6 @@ match type of IHt with
       monoid_tac ; f_equal.
       unfold digit_measure ; rewrite nodeMeasure_digits ; auto.
     Qed.
-    Require Import JMeq.
     (* end hide *)
     (** *** Dependence hell
        %\label{sec:DependenceHell}%
@@ -524,8 +525,6 @@ match type of IHt with
       Definition View_L_size A (measure : A -> v) 
         (view : View_L A (fingertree measure)) :=
         View_L_size' (fun _ => 1) view.
-
-      Require Import Omega.
 
       Lemma digit_to_tree_size : forall A (measure : A -> v) (f : A -> nat) d, tree_size' f (digit_to_tree measure d) = digit_size f d.
       Proof.
@@ -618,7 +617,7 @@ match type of IHt with
           end
       end.
 
-    Obligation Tactic := program_simpl ; monoid_tac ; auto.
+    Local Obligation Tactic := program_simpl ; monoid_tac ; auto.
     Solve Obligations.
     
     Next Obligation.
@@ -839,8 +838,6 @@ match type of IHt with
       destruct (view_L t) ; simpl ; 
         intuition.
     Defined.
-    
-    Require Import JMeq.
     
     (* end hide *)
 
