@@ -1191,9 +1191,9 @@ match type of IHt with
      %\def\coqdocindent#1{\noindent\kern#1}\label{def:app}%
      *)
   
-  Definition app (A : Type) (measure : A -> v) 
+  Definition app : forall (A : Type) (measure : A -> v)
     (xs : v) (x : fingertree measure xs) 
-    (ys : v) (y : fingertree measure ys) : 
+    (ys : v) (y : fingertree measure ys),
     fingertree measure (xs cdot ys).
   (* begin hide *)
     exact appendTree0.
