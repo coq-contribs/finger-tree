@@ -1,48 +1,75 @@
-datatypes.cmi: 
-logic.cmi: 
-peano.cmi: datatypes.cmi 
-specif.cmi: logic.cmi datatypes.cmi 
-sumbool.cmi: specif.cmi 
-digitModule.cmi: specif.cmi logic.cmi datatypes.cmi 
-dependentFingerTreeModule.cmi: specif.cmi peano.cmi logic.cmi digitModule.cmi \
-    datatypes.cmi 
-fingerTreeModule.cmi: specif.cmi peano.cmi digitModule.cmi \
-    dependentFingerTreeModule.cmi datatypes.cmi 
-orders.cmi: datatypes.cmi 
-ordersTac.cmi: orders.cmi datatypes.cmi 
-nBase.cmi: ordersTac.cmi 
-stringInterface.cmi: specif.cmi nProperties.cmi nBase.cmi 
-ropeModule.cmi: stringInterface.cmi specif.cmi nProperties.cmi nDefOps.cmi \
-    fingerTreeModule.cmi digitModule.cmi datatypes.cmi 
-datatypes.cmo: datatypes.cmi 
-datatypes.cmx: datatypes.cmi 
-logic.cmo: logic.cmi 
-logic.cmx: logic.cmi 
-peano.cmo: datatypes.cmi peano.cmi 
-peano.cmx: datatypes.cmx peano.cmi 
-specif.cmo: logic.cmi datatypes.cmi specif.cmi 
-specif.cmx: logic.cmx datatypes.cmx specif.cmi 
-sumbool.cmo: specif.cmi sumbool.cmi 
-sumbool.cmx: specif.cmx sumbool.cmi 
-digitModule.cmo: specif.cmi logic.cmi datatypes.cmi digitModule.cmi 
-digitModule.cmx: specif.cmx logic.cmx datatypes.cmx digitModule.cmi 
-dependentFingerTreeModule.cmo: specif.cmi peano.cmi logic.cmi digitModule.cmi \
-    datatypes.cmi dependentFingerTreeModule.cmi 
-dependentFingerTreeModule.cmx: specif.cmx peano.cmx logic.cmx digitModule.cmx \
-    datatypes.cmx dependentFingerTreeModule.cmi 
-fingerTreeModule.cmo: specif.cmi peano.cmi digitModule.cmi \
-    dependentFingerTreeModule.cmi datatypes.cmi fingerTreeModule.cmi 
-fingerTreeModule.cmx: specif.cmx peano.cmx digitModule.cmx \
-    dependentFingerTreeModule.cmx datatypes.cmx fingerTreeModule.cmi 
-orders.cmo: datatypes.cmi orders.cmi 
-orders.cmx: datatypes.cmx orders.cmi 
-ordersTac.cmo: orders.cmi datatypes.cmi ordersTac.cmi 
-ordersTac.cmx: orders.cmx datatypes.cmx ordersTac.cmi 
-nBase.cmo: ordersTac.cmi nBase.cmi 
-nBase.cmx: ordersTac.cmx nBase.cmi 
-stringInterface.cmo: specif.cmi nProperties.cmi nBase.cmi stringInterface.cmi 
-stringInterface.cmx: specif.cmx nProperties.cmx nBase.cmx stringInterface.cmi 
-ropeModule.cmo: stringInterface.cmi specif.cmi nProperties.cmi nDefOps.cmi \
-    fingerTreeModule.cmi digitModule.cmi datatypes.cmi ropeModule.cmi 
-ropeModule.cmx: stringInterface.cmx specif.cmx nProperties.cmx nDefOps.cmx \
-    fingerTreeModule.cmx digitModule.cmx datatypes.cmx ropeModule.cmi 
+Datatypes.cmi: 
+Logic.cmi: 
+Peano.cmi: Datatypes.cmi 
+Specif.cmi: Logic.cmi Datatypes.cmi 
+Sumbool.cmi: Specif.cmi 
+Equalities.cmi: 
+Orders.cmi: Equalities.cmi Datatypes.cmi 
+OrdersTac.cmi: Orders.cmi Datatypes.cmi 
+NZAxioms.cmi: Equalities.cmi Datatypes.cmi 
+NAxioms.cmi: NZAxioms.cmi 
+NBase.cmi: OrdersTac.cmi NAxioms.cmi 
+NDefOps.cmi: OrdersTac.cmi NAxioms.cmi Datatypes.cmi 
+NMaxMin.cmi: NAxioms.cmi 
+NProperties.cmi: OrdersTac.cmi NMaxMin.cmi NAxioms.cmi 
+Modules.cmi: 
+DigitModule.cmi: Specif.cmi Modules.cmi Logic.cmi Datatypes.cmi 
+DependentFingerTreeModule.cmi: Specif.cmi Peano.cmi Modules.cmi Logic.cmi \
+    DigitModule.cmi Datatypes.cmi 
+FingerTreeModule.cmi: Specif.cmi Peano.cmi Modules.cmi DigitModule.cmi \
+    DependentFingerTreeModule.cmi Datatypes.cmi 
+StringInterface.cmi: Specif.cmi NProperties.cmi NBase.cmi NAxioms.cmi 
+RopeModule.cmi: StringInterface.cmi Specif.cmi NProperties.cmi NDefOps.cmi \
+    NAxioms.cmi FingerTreeModule.cmi DigitModule.cmi Datatypes.cmi 
+Datatypes.cmo: Datatypes.cmi 
+Datatypes.cmx: Datatypes.cmi 
+Logic.cmo: Logic.cmi 
+Logic.cmx: Logic.cmi 
+Peano.cmo: Datatypes.cmi Peano.cmi 
+Peano.cmx: Datatypes.cmx Peano.cmi 
+Specif.cmo: Logic.cmi Datatypes.cmi Specif.cmi 
+Specif.cmx: Logic.cmx Datatypes.cmx Specif.cmi 
+Sumbool.cmo: Specif.cmi Sumbool.cmi 
+Sumbool.cmx: Specif.cmx Sumbool.cmi 
+Equalities.cmo: Equalities.cmi 
+Equalities.cmx: Equalities.cmi 
+Orders.cmo: Equalities.cmi Datatypes.cmi Orders.cmi 
+Orders.cmx: Equalities.cmx Datatypes.cmx Orders.cmi 
+OrdersTac.cmo: Orders.cmi Datatypes.cmi OrdersTac.cmi 
+OrdersTac.cmx: Orders.cmx Datatypes.cmx OrdersTac.cmi 
+NZAxioms.cmo: Equalities.cmi Datatypes.cmi NZAxioms.cmi 
+NZAxioms.cmx: Equalities.cmx Datatypes.cmx NZAxioms.cmi 
+NAxioms.cmo: NZAxioms.cmi NAxioms.cmi 
+NAxioms.cmx: NZAxioms.cmx NAxioms.cmi 
+NBase.cmo: OrdersTac.cmi NAxioms.cmi NBase.cmi 
+NBase.cmx: OrdersTac.cmx NAxioms.cmx NBase.cmi 
+NDefOps.cmo: OrdersTac.cmi NAxioms.cmi Datatypes.cmi NDefOps.cmi 
+NDefOps.cmx: OrdersTac.cmx NAxioms.cmx Datatypes.cmx NDefOps.cmi 
+NMaxMin.cmo: NAxioms.cmi NMaxMin.cmi 
+NMaxMin.cmx: NAxioms.cmx NMaxMin.cmi 
+NProperties.cmo: OrdersTac.cmi NMaxMin.cmi NAxioms.cmi NProperties.cmi 
+NProperties.cmx: OrdersTac.cmx NMaxMin.cmx NAxioms.cmx NProperties.cmi 
+Modules.cmo: Modules.cmi 
+Modules.cmx: Modules.cmi 
+DigitModule.cmo: Specif.cmi Modules.cmi Logic.cmi Datatypes.cmi \
+    DigitModule.cmi 
+DigitModule.cmx: Specif.cmx Modules.cmx Logic.cmx Datatypes.cmx \
+    DigitModule.cmi 
+DependentFingerTreeModule.cmo: Specif.cmi Peano.cmi Modules.cmi Logic.cmi \
+    DigitModule.cmi Datatypes.cmi DependentFingerTreeModule.cmi 
+DependentFingerTreeModule.cmx: Specif.cmx Peano.cmx Modules.cmx Logic.cmx \
+    DigitModule.cmx Datatypes.cmx DependentFingerTreeModule.cmi 
+FingerTreeModule.cmo: Specif.cmi Peano.cmi Modules.cmi DigitModule.cmi \
+    DependentFingerTreeModule.cmi Datatypes.cmi FingerTreeModule.cmi 
+FingerTreeModule.cmx: Specif.cmx Peano.cmx Modules.cmx DigitModule.cmx \
+    DependentFingerTreeModule.cmx Datatypes.cmx FingerTreeModule.cmi 
+StringInterface.cmo: Specif.cmi NProperties.cmi NBase.cmi NAxioms.cmi \
+    StringInterface.cmi 
+StringInterface.cmx: Specif.cmx NProperties.cmx NBase.cmx NAxioms.cmx \
+    StringInterface.cmi 
+RopeModule.cmo: StringInterface.cmi Specif.cmi NProperties.cmi NDefOps.cmi \
+    NAxioms.cmi FingerTreeModule.cmi DigitModule.cmi Datatypes.cmi \
+    RopeModule.cmi 
+RopeModule.cmx: StringInterface.cmx Specif.cmx NProperties.cmx NDefOps.cmx \
+    NAxioms.cmx FingerTreeModule.cmx DigitModule.cmx Datatypes.cmx \
+    RopeModule.cmi 
