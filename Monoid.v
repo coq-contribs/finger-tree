@@ -1,5 +1,5 @@
 (* begin hide *)
-Require Export Coq.Program.Basics Program.
+Require Export Coq.Program.Basics Program Notations.
 (* end hide *)
 (** printing measure %\coqmethodref{FingerTree.Monoid.measure}{measure}% *)(** printing lparr $\coqdoublebar$ *)(** printing rparr $\coqdoublebar$ *)
 (** *** Monoïdes
