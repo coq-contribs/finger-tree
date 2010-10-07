@@ -57,13 +57,13 @@ Hint Unfold monoid_id_l_t monoid_id_r_t monoid_assoc_t.
 
 Require Import Plus.
 
-Lemma monoid_id_left `{Monoid m} : Π x, ε ∙ x = x.
+Lemma monoid_id_left `{Monoid m} : forall x, ε ∙ x = x.
 Proof. intros. apply (monoid_id_l x). Qed.
 
-Lemma monoid_id_right `{Monoid m} : Π x, x ∙ ε = x.
+Lemma monoid_id_right `{Monoid m} : forall x, x ∙ ε = x.
 Proof. intros. apply (monoid_id_r x). Qed.
 
-Lemma monoid_append_ass `{Monoid m} : Π x y z, (x ∙ y) ∙ z = x ∙ (y ∙ z).
+Lemma monoid_append_ass `{Monoid m} : forall x y z, (x ∙ y) ∙ z = x ∙ (y ∙ z).
 Proof. intros. apply (monoid_assoc x). Qed.
 
 Ltac monoid_tac_in H := repeat rewrite @monoid_id_right in H ; repeat rewrite @monoid_id_left in H ; repeat rewrite @monoid_append_ass in H.

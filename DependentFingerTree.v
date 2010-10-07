@@ -408,7 +408,7 @@ Section DependentFingerTree.
        comme obligations dans la définition de [view_L].
        *)
 
-    Lemma view_L_nil : Π `{ma :! Measured v A} s (t : fingertree A s),
+    Lemma view_L_nil : forall `{ma :! Measured v A} s (t : fingertree A s),
       view_L t = nil_L -> s = ε.
     Proof.
       intros.
@@ -422,7 +422,7 @@ Section DependentFingerTree.
       destruct (view_L t) ; try destruct (digit_to_tree measure r) ; simpl  in * ; try discriminate ; auto.
     Qed.
 
-    Lemma view_L_cons : Π `{ma :! Measured v A} s (t : fingertree A s) x st' t',
+    Lemma view_L_cons : forall `{ma :! Measured v A} s (t : fingertree A s) x st' t',
       view_L t = cons_L x (s:=st') t' -> s = measure x ∙ st'.
     Proof.
       induction t ; program_simpl ; intros ; simpl in * ; try discriminate ; auto.
@@ -463,7 +463,7 @@ Section DependentFingerTree.
       end.
 
     Definition View_L_size `{ma :! Measured v A} (v : View_L A (fingertree A)) :=
-      View_L_size' (λ _, 1) v.
+      View_L_size' (fun _ => 1) v.
        
     (** Il n'y a plus qu'à montrer que pour tout arbre [t], [view_L t] retourne une vue de taille
        [tree_size t] pour prouver qu'un appel récursif sur la queue d'une vue est correct
@@ -1276,7 +1276,7 @@ Section DependentFingerTree.
       Proof.
         destruct_call split_digit ; program_simpl.
         destruct_conjs ; simpl_JMeq ; autoinjections.
-        change (digit_reducel (λ (i : v) (a : A), i ∙ lparr a rparr) ε pr0) with (lparr pr0 rparr) in *.
+        change (digit_reducel (fun (i : v) (a : A) => i ∙ lparr a rparr) ε pr0) with (lparr pr0 rparr) in *.
         rewrite H1 in H. rewrite <- monoid_assoc. rewrite <- monoid_assoc. f_equal.
         rewrite H1. rewrite monoid_assoc. reflexivity.
       Qed.
