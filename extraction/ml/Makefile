@@ -1,7 +1,7 @@
 OCAMLMAKEFILE = OCamlMakefile
 SOURCEMODULES = Datatypes Logic Peano Specif Sumbool \
  Equalities Orders OrdersTac \
- NZAxioms NAxioms NBase NDefOps NMaxMin NProperties \
+ NZAxioms NAxioms NBase NDefOps \
  Modules DigitModule DependentFingerTreeModule \
  FingerTreeModule StringInterface RopeModule
 

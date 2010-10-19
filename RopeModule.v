@@ -27,12 +27,11 @@ End ROPE.
 Require Import Coq.Numbers.Natural.Abstract.NBase.
 Require Import Coq.Numbers.Natural.Abstract.NAxioms.
 Require Import Coq.Numbers.Natural.Abstract.NSub.
-Require Import Coq.Numbers.Natural.Abstract.NProperties.
 Require Import Coq.Numbers.Natural.Abstract.NDefOps.
 
 Require Import Coq.Numbers.NatInt.NZAxioms.
-    
-Module Rope(Export NAxioms : NAxiomsSig' with 
+
+Module Rope(Export NAxioms : NAxiomsRecSig' with
   Definition t := nat
     with Definition eq := @eq nat)
   (S : String with Module NAxioms := NAxioms) : ROPE.
@@ -41,11 +40,11 @@ Module Rope(Export NAxioms : NAxiomsSig' with
   Import S.
   Module Sub := SubString S.
   Import Sub.
-  Module Props := NPropFunct NAxioms.
+  Module Import Props. Include NSubProp NAxioms. End Props.
   Export Props.
   Import S.Nats.
   Import S.Nats.Props.
-  Module Ops :=  NdefOpsPropFunct NAxioms.
+  Module Ops :=  NdefOpsProp NAxioms.
 
   Definition string := Str.t.
   Definition N := NAxioms.t.
