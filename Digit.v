@@ -157,7 +157,7 @@ Ltac monoid_tac := autorewrite with monoid.
 Section Notations.
   Context `{m : Monoid v}.
 
-  Global Instance digit_measure `(Measured v A) : Measured v (digit A) :=
+  Global Instance digit_measure `(!Measured v A) : Measured v (digit A) :=
     { measure := digit_reducel (fun i a => i ∙ lparr a rparr) ε }.
 
   Ltac splitTac := 
