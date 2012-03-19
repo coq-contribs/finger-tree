@@ -250,7 +250,7 @@ Module DependentFingerTree (M : Monoid).
        For each of the following operations, this correspondence with
        the list instanciation of the measure will hold. *)
     (* begin hide *)
-    Solve Obligations using program_simpl ; try unfold digit_measure ; simpl ; monoid_tac ; auto with *.
+    Solve Obligations with program_simpl ; try unfold digit_measure ; simpl ; monoid_tac ; auto with *.
 
     Next Obligation.
     Proof.
@@ -279,7 +279,7 @@ Module DependentFingerTree (M : Monoid).
           end
       end.
 
-    Solve Obligations using program_simpl ; simpl ; monoid_tac ; auto.
+    Solve Obligations with program_simpl ; simpl ; monoid_tac ; auto.
 
     Next Obligation.
     Proof.
@@ -1249,7 +1249,7 @@ match type of IHt with
                   get_digit measure p sf vpm
         end.
 
-      Solve Obligations using  program_simpl ; intuition ; simpl in * ; subst ; simpl_monoid ; auto.
+      Solve Obligations with  program_simpl ; intuition ; simpl in * ; subst ; simpl_monoid ; auto.
     
       Next Obligation.
       Proof.

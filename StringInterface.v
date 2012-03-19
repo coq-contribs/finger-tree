@@ -51,7 +51,7 @@ Module SubString(S : String).
       offset : below (length string);
       length : upto (length string - `offset) }.
 
-  Program Definition new (s : S.t | S.length s > 0) :=
+  Program Definition new (s : {s:S.t | S.length s > 0}) :=
     @mkSubStr s 0 (S.length s).
 
   Next Obligation.

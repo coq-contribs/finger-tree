@@ -168,7 +168,8 @@ Module FingerTree(M : Monoid) (Ms : Measured with Module Mon := M).
       : Split p i :=
       let 's :| t := x in
       let 'mkTreeSplit ls l x rs r := split_tree p i t in
-        mkSplit p i (ls :| l : finger_tree) x (rs :| r : finger_tree).
+        mkSplit p i (ls :| `l) x (rs :| `r).
+
   (* end hide *)
 
     (** %\def\coqdocindent#1{\noindent\kern#1\hskip-1em}\label{def:split_with}%We can finally wrap splitting

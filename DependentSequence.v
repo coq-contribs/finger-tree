@@ -125,7 +125,7 @@ Section DependentSequence.
     (n + m) ::> (fun i => if less_than i n then fx i else fy (i - n)).
 
   (* begin hide *)
-  Solve Obligations using unfold below in * ; program_simplify ; auto with *.
+  Solve Obligations with unfold below in * ; program_simplify ; auto with *.
   (* end hide *)
   (** On peut construire le monoïde [seqMonoid] à partir de ces opérations. 
      On saute les preuves qui sont relativement faciles. Il est juste à noter 

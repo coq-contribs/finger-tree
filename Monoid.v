@@ -84,7 +84,7 @@ Require Import Coq.Lists.List.
 Program Instance list_monoid A : Monoid (list A) :=
   { mempty := [] ; mappend:= @app A }.
 
-  Solve Obligations using red ; auto with datatypes.
+  Solve Obligations with red ; auto with datatypes.
 
 (** On définit aussi la classe [Measured] tout comme en %\Haskell% qui va
    permettre de faire référence indifférement à la mesure d'un doigt, un nœud ou

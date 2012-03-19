@@ -147,11 +147,12 @@ Section DependentFingerTree.
      %\fingertreeFig%
     *)
   (* begin hide *)
+
   Inductive fingertree {A} {ma : Measured v A} : v -> Type :=
   | Empty : fingertree ε
   | Single : forall x : A, fingertree (measure x)
   | Deep : forall (l : digit A) {ms : v}, 
-    @fingertree (node A) _ ms
+             fingertree (A:=node A) (ma:=_) ms
     -> forall r : digit A, fingertree (measure l ∙ ms ∙ measure r).
 
   Implicit Arguments fingertree [[ma]].
@@ -238,7 +239,7 @@ Section DependentFingerTree.
        *)
     (* begin hide *)
 
-    Solve Obligations using program_simpl ; try unfold measure, digit_measure ; simpl ; monoid_tac ; auto.
+    Solve Obligations with program_simpl ; try unfold measure, digit_measure ; simpl ; monoid_tac ; auto.
 
     Next Obligation.
     Proof.
@@ -267,7 +268,7 @@ Section DependentFingerTree.
           end
       end.
 
-    Solve Obligations using program_simpl ; try unfold measure, digit_measure ; simpl ; monoid_tac ; auto.
+    Solve Obligations with program_simpl ; try unfold measure, digit_measure ; simpl ; monoid_tac ; auto.
 
     Next Obligation.
     Proof.
@@ -306,7 +307,7 @@ Section DependentFingerTree.
       | Four x y z w => Deep (Two x y) Empty (Two z w)
     end.
   (* begin hide *)
-  Solve Obligations using program_simpl ; simpl in * ; program_simpl ; unfold measure ; simpl ; monoid_tac ; auto.
+  Solve Obligations with program_simpl ; simpl in * ; program_simpl ; unfold measure ; simpl ; monoid_tac ; auto.
 
   (** *** Computing the size of a tree
      In this section we build recursive functions for computing the number of elements of a tree.
@@ -1159,7 +1160,7 @@ Section DependentFingerTree.
               (Some (Two x y), z, None)
       end.
       (* begin hide *)
-      Solve Obligations using program_simpl ; intros ;
+      Solve Obligations with program_simpl ; intros ;
         try subst l x r ; try subst l x0 r ;
           split ; unfold node_to_list, digit_to_list, node_to_digit ; try splitTac ; auto ;
             destruct n ; program_simpl ;
