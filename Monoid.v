@@ -13,6 +13,7 @@ Require Export Coq.Program.Basics Program.
    aux variables de section qu'elles utilisent. *)
 
 Global Generalizable Variables m v A.
+Global Set Asymmetric Patterns.
 
 Section Monoid_Laws.
 
