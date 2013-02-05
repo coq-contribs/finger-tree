@@ -5,6 +5,8 @@ Require Import FingerTree.Notations.
 Require Import FingerTree.Digit.
 Require Import Coq.Lists.List Coq.Program.Program JMeq Coq.Program.Equality.
 
+Unset Transparent Obligations.
+
 Set Implicit Arguments.
 (** Useful when working with existT equalities. *)
 Implicit Arguments inj_pair2 [U P p x y].
