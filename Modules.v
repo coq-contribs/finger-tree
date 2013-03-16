@@ -8,9 +8,9 @@ Module Type Monoid.
   Notation " x 'cdot' y " := (mappend x y) (right associativity, at level 20).
   Notation epsilon := mempty.
   
-  Hypothesis monoid_id_l : forall x, epsilon cdot x = x.
-  Hypothesis monoid_id_r : forall x, x cdot epsilon = x.
-  Hypothesis monoid_assoc : forall x y z, (x cdot y) cdot z = x cdot y cdot z.
+  Axiom monoid_id_l : forall x, epsilon cdot x = x.
+  Axiom monoid_id_r : forall x, x cdot epsilon = x.
+  Axiom monoid_assoc : forall x y z, (x cdot y) cdot z = x cdot y cdot z.
 
   Hint Rewrite monoid_id_r monoid_id_l monoid_assoc : monoid.
 
