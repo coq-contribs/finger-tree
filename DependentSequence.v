@@ -493,7 +493,7 @@ Hint Extern 4 => contradiction : exfalso.
     inversion Heq_anonymous ; clear Heq_anonymous.
     subst i.
     assert (Hproj:=inj_pairT2 H1).
-    subst m ; clear H1 x.
+    subst m ; clear H1 x0.
 
     unfold apply ; simpl.
 
@@ -524,7 +524,7 @@ Hint Extern 4 => contradiction : exfalso.
     inversion Heq_anonymous ; clear Heq_anonymous.
     subst i.
     assert (Hproj:=inj_pairT2 H1).
-    subst m ; clear H1 x.
+    subst m ; clear H1 x0.
 
     unfold apply ; simpl.
 

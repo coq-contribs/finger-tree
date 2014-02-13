@@ -1263,7 +1263,7 @@ Section DependentFingerTree.
 
       Next Obligation.
       Proof.
-        change (p (i ∙ lparr pr0 rparr) = true) in H. right.
+        change (p (i ∙ lparr pr rparr) = true) in H. right.
         destruct_call split_digit ; program_simpl.
         destruct_conjs ; simpl_JMeq ; autoinjections.
         destruct o0. destruct H3 ; auto with exfalso. 
@@ -1279,7 +1279,7 @@ Section DependentFingerTree.
       Proof.
         destruct_call split_digit ; program_simpl.
         destruct_conjs ; simpl_JMeq ; autoinjections.
-        change (digit_reducel (fun (i : v) (a : A) => i ∙ lparr a rparr) ε pr0) with (lparr pr0 rparr) in *.
+        change (digit_reducel (fun (i : v) (a : A) => i ∙ lparr a rparr) ε pr) with (lparr pr rparr) in *.
         rewrite H1 in H. rewrite <- monoid_assoc. rewrite <- monoid_assoc. f_equal.
         rewrite H1. rewrite monoid_assoc. reflexivity.
       Qed.
@@ -1310,9 +1310,9 @@ Section DependentFingerTree.
 
       Next Obligation.
       Proof.
-        clear split_tree' Heq_anonymous.
+        clear split_tree' Heq_anonymous0.
         right.
-        destruct_call split_node in Heq_anonymous0. simpl in *. subst.
+        destruct_call split_node in Heq_anonymous. simpl in *. subst.
         program_simpl.
         destruct_nondep H2 ; monoid_tac_in H2 ;auto.
         assert (He:=isEmpty_ε _ H8).
@@ -1330,7 +1330,7 @@ Section DependentFingerTree.
 
       Next Obligation.
       Proof.
-        clear Heq_anonymous split_tree'.
+        clear Heq_anonymous0 split_tree'.
         right.
         destruct_call split_node.
         simpl in *. subst x1 ; program_simpl.
@@ -1348,7 +1348,7 @@ Section DependentFingerTree.
       
       Next Obligation.
       Proof.
-        clear Heq_anonymous.
+        clear Heq_anonymous0.
         destruct_call split_node.
         simpl in * ; subst x1.
         monoid_tac.

@@ -1428,7 +1428,7 @@ match type of IHt with
 
       Next Obligation.
       Proof.
-        destruct (split_digit measure p i pr0) ; program_simpl.
+        destruct (split_digit measure p i pr) ; program_simpl.
         destruct_conjs. simpl_JMeq. autoinjections.
         destruct H2 ; [left | right] ; auto.
         rewrite H1 ; simpl. split.
@@ -1436,7 +1436,7 @@ match type of IHt with
 
       Next Obligation.
       Proof.
-        destruct (split_digit measure p i pr0). program_simpl.
+        destruct (split_digit measure p i pr). program_simpl.
         reverse ; simplify_dep_elim.
         rewrite H1 in H.
         destruct H2. subst. simpl in *.
@@ -1448,7 +1448,7 @@ match type of IHt with
 
       Next Obligation.
       Proof.
-        destruct (split_digit measure p i pr0) ; program_simpl. 
+        destruct (split_digit measure p i pr) ; program_simpl. 
         rewrite H1. monoid_tac. reflexivity.
       Qed.
 
@@ -1468,10 +1468,10 @@ match type of IHt with
 
       Next Obligation.
       Proof.
-        intros. subst filtered_var. 
-        clear Heq_anonymous split_tree'. subst filtered_var0 vpr vpm. program_simpl.
+        intros. subst filtered_var0. 
+        clear Heq_anonymous0 split_tree'. subst filtered_var vpr vpm. program_simpl.
         right.
-        destruct (split_node p ((i cdot digit_measure measure pr0) cdot mls) x).
+        destruct (split_node p ((i cdot digit_measure measure pr) cdot mls) x0).
         simpl in *.
         destruct x1 ; program_simpl.
         destruct_pairs.
@@ -1491,10 +1491,10 @@ match type of IHt with
 
       Next Obligation.
       Proof.
-        intros. subst filtered_var.
-        clear Heq_anonymous split_tree'. subst filtered_var0 vpr vpm. program_simpl.
+        intros. subst filtered_var0.
+        clear Heq_anonymous0 split_tree'. subst filtered_var vpr vpm. program_simpl.
         right.
-        destruct (split_node p ((i cdot digit_measure measure pr0) cdot mls) x).
+        destruct (split_node p ((i cdot digit_measure measure pr) cdot mls) x0).
         simpl in *.
         destruct x1 ; program_simpl.
         monoid_tac.
@@ -1512,12 +1512,12 @@ match type of IHt with
 
       Next Obligation.
       Proof.
-        intros. subst filtered_var.
-        clear split_tree' Heq_anonymous. subst filtered_var0 vpr vpm. program_simpl.
-        destruct (split_node p ((i cdot digit_measure measure pr0) cdot mls) x).
+        intros. subst filtered_var0.
+        clear split_tree' Heq_anonymous0. subst filtered_var vpr vpm. program_simpl.
+        destruct (split_node p ((i cdot digit_measure measure pr) cdot mls) x0).
         simpl in *.
         destruct x1 as [[l' x'] r'].
-        inversion Heq_anonymous0 ; subst l x0 r ; clear Heq_anonymous0.
+        inversion Heq_anonymous ; subst l x r ; clear Heq_anonymous.
         monoid_tac.
         program_simpl ; destruct_pairs.
         rewrite H4.
@@ -1529,7 +1529,7 @@ match type of IHt with
       Next Obligation.
       Proof.
         destruct (split_digit measure p
-          ((i cdot digit_measure measure pr0) cdot smid) sf).
+          ((i cdot digit_measure measure pr) cdot smid) sf).
         destruct x0 ; simpl in * ; program_simpl.
         right.
         destruct_pairs.
@@ -1543,7 +1543,7 @@ match type of IHt with
       Next Obligation.
       Proof.
         destruct (split_digit measure p
-          ((i cdot digit_measure measure pr0) cdot smid) sf).
+          ((i cdot digit_measure measure pr) cdot smid) sf).
         destruct x0 ; simpl in * ; program_simpl.
         monoid_tac.
         destruct_pairs.
@@ -1554,7 +1554,7 @@ match type of IHt with
       Next Obligation.
       Proof.
         destruct (split_digit measure p
-          ((i cdot digit_measure measure pr0) cdot smid) sf).
+          ((i cdot digit_measure measure pr) cdot smid) sf).
         destruct x0 ; simpl in * ; program_simpl.
         monoid_tac.
         do 2 f_equal.

@@ -118,8 +118,8 @@ Module OrdSequence(AO : OrderedType).
   Proof.
     simpl.
     cut (FingerTree.tree_size ys >= FingerTree.tree_size r) ; intros.
-    pose (view_left_size _ (sym_eq Heq_anonymous)) ; omega.
-    rewrite (split_size _ _ (sym_eq Heq_anonymous0)). simpl. omega.
+    pose (view_left_size _ (sym_eq Heq_anonymous0)) ; omega.
+    rewrite (split_size _ _ (sym_eq Heq_anonymous)). simpl. omega.
   Qed.
 
 End OrdSequence.
