@@ -361,7 +361,7 @@ Section DependentSequence.
   Next Obligation.
   Proof. 
     red ; intros.
-    isEmpty_tac H0.
+    isEmpty_tac H.
     destruct exist j Hj ; inversion Hj.
   Qed.
 
