@@ -5,6 +5,7 @@ Require Import FingerTree.Notations.
 Require Import FingerTree.Digit.
 Require Import Coq.Lists.List Coq.Program.Program JMeq Coq.Program.Equality.
 
+Unset Standard Proposition Elimination Names.
 Unset Transparent Obligations.
 
 Set Implicit Arguments.

@@ -1,9 +1,11 @@
 (* -*- compile-command: "cd .. && ./makedoc.sh" -*- *)
 (* begin hide *)
-Require Import FingerTree.Modules.
+Require Import Omega FingerTree.Modules.
 Require Import FingerTree.DependentFingerTreeModule.
 Require Import Coq.Program.Program Coq.Program.Equality.
 Implicit Type v A : Type.
+Unset Standard Proposition Elimination Names.
+
 Set Implicit Arguments.
 (* end hide *)
 (** printing lparr $\coqdoublebar$ *)(** printing rparr $\coqdoublebar$ *)(** printing cdot $\cdot$ *)(** printing epsilon $\varepsilon$ *)(** printing +:+ $\treeapp$ *)(** printing ++ $\app$ *)(** printing := $\coloneqq$ *)(** printing :> $\Yright$ *)(** printing < $<$ *)(** printing > $>$ *)

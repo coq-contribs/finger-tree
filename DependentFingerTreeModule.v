@@ -9,6 +9,7 @@ Require Import FingerTree.DigitModule.
 Require Import Coq.Program.Program Coq.Program.Equality.
 Require Import Omega JMeq.
 
+Unset Standard Proposition Elimination Names.
 Unset Dependent Propositions Elimination.
 Set Implicit Arguments.
 (** Useful when working with existT equalities. *)

@@ -7,6 +7,7 @@ Require Import Coq.Program.Program.
 Require Import Arith.
 
 Require Import Coq.Structures.OrderedType.
+Unset Standard Proposition Elimination Names.
 
 Set Implicit Arguments.
 

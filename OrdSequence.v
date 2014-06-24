@@ -5,6 +5,9 @@ Require Import Coq.Program.Program.
 Require Import FingerTree.OrderedType.
 Require Import FingerTree.FingerTree.
 Require Import FingerTree.KeyMonoid.
+Require Import Omega.
+
+Unset Standard Proposition Elimination Names.
 
 Require Import Arith.
 
