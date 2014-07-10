@@ -1,6 +1,6 @@
 Datatypes.cmi :
 Logic.cmi :
-Peano.cmi : Datatypes.cmi
+Nat.cmi : Datatypes.cmi
 Specif.cmi : Datatypes.cmi
 Sumbool.cmi :
 Equalities.cmi : Bool.cmi
@@ -12,9 +12,9 @@ NBase.cmi : OrdersTac.cmi NAxioms.cmi
 NDefOps.cmi : NAxioms.cmi Datatypes.cmi
 Modules.cmi :
 DigitModule.cmi : Modules.cmi Datatypes.cmi
-DependentFingerTreeModule.cmi : Peano.cmi Modules.cmi DigitModule.cmi \
+DependentFingerTreeModule.cmi : Nat.cmi Modules.cmi DigitModule.cmi \
     Datatypes.cmi
-FingerTreeModule.cmi : Peano.cmi Modules.cmi DigitModule.cmi \
+FingerTreeModule.cmi : Nat.cmi Modules.cmi DigitModule.cmi \
     DependentFingerTreeModule.cmi Datatypes.cmi
 StringInterface.cmi : NBase.cmi NAxioms.cmi
 RopeModule.cmi : StringInterface.cmi NDefOps.cmi NAxioms.cmi \
@@ -23,8 +23,8 @@ Datatypes.cmo : Datatypes.cmi
 Datatypes.cmx : Datatypes.cmi
 Logic.cmo : Logic.cmi
 Logic.cmx : Logic.cmi
-Peano.cmo : Datatypes.cmi Peano.cmi
-Peano.cmx : Datatypes.cmx Peano.cmi
+Nat.cmo : Datatypes.cmi Nat.cmi
+Nat.cmx : Datatypes.cmx Nat.cmi
 Specif.cmo : Datatypes.cmi Specif.cmi
 Specif.cmx : Datatypes.cmx Specif.cmi
 Sumbool.cmo : Sumbool.cmi
@@ -47,13 +47,13 @@ Modules.cmo : Modules.cmi
 Modules.cmx : Modules.cmi
 DigitModule.cmo : Modules.cmi Datatypes.cmi DigitModule.cmi
 DigitModule.cmx : Modules.cmx Datatypes.cmx DigitModule.cmi
-DependentFingerTreeModule.cmo : Peano.cmi Modules.cmi DigitModule.cmi \
+DependentFingerTreeModule.cmo : Nat.cmi Modules.cmi DigitModule.cmi \
     Datatypes.cmi DependentFingerTreeModule.cmi
-DependentFingerTreeModule.cmx : Peano.cmx Modules.cmx DigitModule.cmx \
+DependentFingerTreeModule.cmx : Nat.cmx Modules.cmx DigitModule.cmx \
     Datatypes.cmx DependentFingerTreeModule.cmi
-FingerTreeModule.cmo : Peano.cmi Modules.cmi DigitModule.cmi \
+FingerTreeModule.cmo : Nat.cmi Modules.cmi DigitModule.cmi \
     DependentFingerTreeModule.cmi Datatypes.cmi FingerTreeModule.cmi
-FingerTreeModule.cmx : Peano.cmx Modules.cmx DigitModule.cmx \
+FingerTreeModule.cmx : Nat.cmx Modules.cmx DigitModule.cmx \
     DependentFingerTreeModule.cmx Datatypes.cmx FingerTreeModule.cmi
 StringInterface.cmo : NBase.cmi NAxioms.cmi StringInterface.cmi
 StringInterface.cmx : NBase.cmx NAxioms.cmx StringInterface.cmi
