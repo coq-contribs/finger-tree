@@ -1,6 +1,7 @@
 Require Import FingerTree.Monoid.
 Require Import Coq.Program.Program.
 Require Import FingerTree.OrderedType.
+Require Coq.Bool.Bool.
 
 Module KeyMonoid(O : OrderedType).
   Module OFacts := OrderedTypeFacts2 O.
@@ -34,7 +35,7 @@ Module KeyMonoid(O : OrderedType).
       | Some x, Some y => ltb x y
     end.
   
-  Require Import Coq.Bool.Bool.
+  Import Coq.Bool.Bool.
   Definition key_ge x y := negb (key_ltb x y).
   Definition key_gt x y := key_ltb y x.
 

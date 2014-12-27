@@ -1,5 +1,6 @@
 Datatypes.cmi :
 Logic.cmi :
+Bool.cmi :
 Nat.cmi : Datatypes.cmi
 Specif.cmi : Datatypes.cmi
 Sumbool.cmi :
@@ -23,6 +24,8 @@ Datatypes.cmo : Datatypes.cmi
 Datatypes.cmx : Datatypes.cmi
 Logic.cmo : Logic.cmi
 Logic.cmx : Logic.cmi
+Bool.cmo : Bool.cmi
+Bool.cmx : Bool.cmi
 Nat.cmo : Datatypes.cmi Nat.cmi
 Nat.cmx : Datatypes.cmx Nat.cmi
 Specif.cmo : Datatypes.cmi Specif.cmi

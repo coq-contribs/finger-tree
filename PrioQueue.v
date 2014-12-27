@@ -5,6 +5,7 @@ Require Import FingerTree.DependentFingerTree.
 Require Import FingerTree.FingerTree.
 Require Import Coq.Program.Program.
 Require Import Arith.
+Require FingerTree.
 
 Require Import Coq.Structures.OrderedType.
 Unset Standard Proposition Elimination Names.
@@ -89,7 +90,7 @@ Module PrioQueue(A : OrderedType).
 
   Definition PQueue := FingerTree prio_measure.
 
-  Require Import FingerTree.
+  Import FingerTree.
 
   Program Definition extractMax (x : PQueue) : option A * PQueue := 
       if is_empty_dec x then (None, x)

@@ -6,6 +6,7 @@ Require Import FingerTree.OrderedType.
 Require Import FingerTree.FingerTree.
 Require Import FingerTree.KeyMonoid.
 Require Import Omega.
+Require DependentFingerTree.
 
 Unset Standard Proposition Elimination Names.
 
@@ -114,7 +115,7 @@ Module OrdSequence(AO : OrderedType).
      pour obtenir une structure certifiée modulairement, sans avoir à raisonner sur le code. *)
   (* begin hide *)
 
-  Require Import DependentFingerTree.
+  Import DependentFingerTree.
  
 
   Next Obligation.

@@ -3,6 +3,8 @@
 Require Import Omega FingerTree.Modules.
 Require Import FingerTree.DependentFingerTreeModule.
 Require Import Coq.Program.Program Coq.Program.Equality.
+Require JMeq.
+Require Coq.Program.Equality.
 Implicit Type v A : Type.
 Unset Standard Proposition Elimination Names.
 
@@ -74,7 +76,7 @@ Module FingerTree(M : Monoid) (Ms : Measured with Module Mon := M).
   Definition tree_measure (s : finger_tree) : v := 
     let 'ts :| _ := s in ts.
 
-  Require Import JMeq.
+  Import JMeq.
 
   Program Definition tree_size (s : finger_tree) : nat := 
     let '_ :| t := s in tree_size t.
@@ -198,7 +200,7 @@ Module FingerTree(M : Monoid) (Ms : Measured with Module Mon := M).
     Program Definition size_split (x : finger_tree * finger_tree) : nat :=
       let (x,y) := x in tree_size x + tree_size y.
 
-    Require Import Coq.Program.Equality.
+    Import Coq.Program.Equality.
 
     Print mkTreeSplit.
 
