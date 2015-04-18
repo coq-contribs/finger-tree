@@ -17,5 +17,7 @@ DigitModule.v
 DependentFingerTreeModule.v
 FingerTreeModule.v
 RopeModule.v
--custom "cd extraction/ml/; rm -f *.ml *.mli *.cm* *.o; $(COQC) -q -opt -R ../.. FingerTree Extract.v" "extraction/ml/Extract.v" "extraction/ml/Extract.vo" 
-extraction
+-extra test extraction/ml/Extract.vo
+       "cd extraction/ml/; $(MAKE) all"
+-extra extraction/ml/Extract.vo extraction/ml/Extract.v
+       "cd extraction/ml/; rm -f *.ml *.mli *.cm* *.o; $(COQC) -q -opt -R ../.. FingerTree Extract.v"

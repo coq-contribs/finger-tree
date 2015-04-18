@@ -1,6 +1,6 @@
 OCAMLMAKEFILE = OCamlMakefile
 SOURCEMODULES = Datatypes Logic Bool Nat Specif Sumbool \
- Equalities Orders OrdersTac \
+ Equalities OrdersTac \
  NZAxioms NAxioms NBase NDefOps \
  Modules DigitModule DependentFingerTreeModule \
  FingerTreeModule StringInterface RopeModule
