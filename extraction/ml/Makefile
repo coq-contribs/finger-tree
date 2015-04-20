@@ -1,6 +1,6 @@
 OCAMLMAKEFILE = OCamlMakefile
 SOURCEMODULES = Datatypes Logic Bool Nat Specif Sumbool \
- Equalities OrdersTac \
+ Equalities Orders OrdersTac \
  NZAxioms NAxioms NBase NDefOps \
  Modules DigitModule DependentFingerTreeModule \
  FingerTreeModule StringInterface RopeModule
@@ -16,19 +16,14 @@ LIBINSTALL_FILES := $(RESULT).cmi $(RESULT).cma \
 		    $(RESULT).cmxa $(RESULT).a \
 	$(SOURCEMODULES:=.mli)
 
-all: depend bcl ncl
-
-depend: ${SOURCES}
-	$(CAMLBIN)ocamldep ${SOURCES} > .depend
+all: ncl
 
 realclean:
-	rm -f ${SOURCES} Extract.vo
+	rm -f ${SOURCES} Extract.vo Extract.glob
 
 install: libinstall
 
 uninstall: libuninstall
-
--include .depend
 
 -include ${OCAMLMAKEFILE}
 

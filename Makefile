@@ -177,7 +177,7 @@ beautify: $(VFILES:=.beautified)
 	@echo 'Do not do "make clean" until you are sure that everything went well!'
 	@echo 'If there were a problem, execute "for file in $$(find . -name \*.v.old -print); do mv $${file} $${file%.old}; done" in your shell/'
 
-.PHONY: all archclean beautify byte clean cleanall gallina gallinahtml html install install-doc install-natdynlink install-toploop opt printenv quick uninstall userinstall validate vio2vo
+.PHONY: all archclean beautify byte clean cleanall gallina gallinahtml html install install-doc install-natdynlink install-toploop opt printenv quick uninstall userinstall validate vio2vo clean
 
 ###################
 #                 #
@@ -185,7 +185,10 @@ beautify: $(VFILES:=.beautified)
 #                 #
 ###################
 
-extraction/ml/Extract.vo: extraction/ml/Extract.v
+clean:: 
+	$(MAKE) -C extraction/ml clean realclean
+
+extraction/ml/Extract.vo: extraction/ml/Extract.v $(VOFILES)
 	cd extraction/ml/; rm -f *.ml *.mli *.cm* *.o; $(COQC) -q -opt -R ../.. FingerTree Extract.v
 
 test: extraction/ml/Extract.vo

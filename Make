@@ -19,5 +19,7 @@ FingerTreeModule.v
 RopeModule.v
 -extra test extraction/ml/Extract.vo
        "cd extraction/ml/; $(MAKE) all"
--extra extraction/ml/Extract.vo extraction/ml/Extract.v
+-extra extraction/ml/Extract.vo "extraction/ml/Extract.v $(VOFILES)"
        "cd extraction/ml/; rm -f *.ml *.mli *.cm* *.o; $(COQC) -q -opt -R ../.. FingerTree Extract.v"
+-extra-phony clean ""
+       "$(MAKE) -C extraction/ml clean realclean"
