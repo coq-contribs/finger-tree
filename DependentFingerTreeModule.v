@@ -11,7 +11,7 @@ Require Import Omega JMeq.
 
 Set Implicit Arguments.
 (** Useful when working with existT equalities. *)
-Implicit Arguments inj_pair2 [U P p x y].
+Arguments inj_pair2 [U P p x y].
 (* end hide *)
 (** printing lparr $\coqdoublebar$ *)(** printing rparr $\coqdoublebar$ *)(** printing cdot $\cdot$ *)(** printing epsilon $\varepsilon$ *)(** printing +:+ $\treeapp$ *)(** printing ++ $\app$ *)(** printing := $\coloneqq$ *)(** printing ::> $\Yright$ *)(** printing < $<$ *)
 (** We shall now define the Finger Trees over some monoid and measure. 
@@ -97,13 +97,13 @@ Module DependentFingerTree (M : Monoid).
      *)
   
   (* begin hide *)
-  Implicit Arguments node_measure [A].
+  Arguments node_measure [A].
 
   (** We define this abbreviation for partial applications, where the [measure] parameter
      will get instantiated automatically. *)
 
-  Implicit Arguments Node2 [A measure].
-  Implicit Arguments Node3 [A measure].
+  Arguments Node2 [A measure].
+  Arguments Node3 [A measure].
   
   Hint Unfold option_digit_measure option_measure digit_measure : ft.
   
@@ -188,9 +188,9 @@ Module DependentFingerTree (M : Monoid).
      Note also that we need %\emph{polymorphic}% recursion to go into the middle subtrees of [Deep] nodes.     
      *)
   (* begin hide *)
-  Implicit Arguments Single [A measure].
-  Implicit Arguments Empty [A measure].
-  Implicit Arguments Deep [A measure ms].
+  Arguments Single [A measure].
+  Arguments Empty [A measure].
+  Arguments Deep [A measure] _ [ms].
 
   Section add.   
   (* end hide *)    
@@ -361,8 +361,8 @@ Module DependentFingerTree (M : Monoid).
     | cons_L : A -> forall s, seq s -> View_L A seq.
     
     (* begin hide *)
-    Implicit Arguments nil_L [A seq].
-    Implicit Arguments cons_L [A seq s].
+    Arguments nil_L [A seq].
+    Arguments cons_L [A seq] _ [s].
     (* end hide *)
 
     (** Such a view will be constructed by the [view_L] function, by structural (polymorphic)
@@ -680,8 +680,8 @@ match type of IHt with
     | nil_R : View_R measure seq
     | cons_R : forall s : v, seq A measure s -> A -> View_R measure seq.
     
-    Implicit Arguments nil_R [A measure seq].
-    Implicit Arguments cons_R [A measure seq s].
+    Arguments nil_R [A measure seq].
+    Arguments cons_R [A measure seq s].
 
     Program Fixpoint view_R (A : Type) (measure : A -> v) (s : v) (t : fingertree measure s) {struct t} : 
       View_R measure fingertree := 
