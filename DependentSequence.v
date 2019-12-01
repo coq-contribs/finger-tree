@@ -6,6 +6,7 @@ Require Import Coq.Logic.FunctionalExtensionality.
 (* Require Import Reflect.Tactics. *)
 Require Import Arith.
 Require Import Omega.
+Require Import Lia.
 
 Set Implicit Arguments.
 
@@ -333,7 +334,7 @@ Section DependentSequence.
     destruct or H0 ; [ isEmpty_tac H0 | idtac ];
       (destruct or H1 ; [ isEmpty_tac H1 | idtac ]) ; try omega.
 
-    pose (lt_complete_conv H1). omega.
+    pose (lt_complete_conv H1). lia.
     pose (leb_complete _ _ H0). omega.
     destruct ls. 
     simpl in *;  pose (leb_complete _ _ H0) ; omega.
