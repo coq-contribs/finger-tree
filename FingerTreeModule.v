@@ -201,8 +201,6 @@ Module FingerTree(M : Monoid) (Ms : Measured with Module Mon := M).
 
     Import Coq.Program.Equality.
 
-    Print mkTreeSplit.
-
 (*     Program Definition coerce_tree_split_v (v : Type) (mono : monoid v) (p : v -> bool)  *)
 (*       (A : Type) (measure : A -> v) (i : v) (s : v) (t : tree_split mono p measure i s) *)
 (*       (s' : v) (H : s = s') : tree_split mono p measure i s' := *)
