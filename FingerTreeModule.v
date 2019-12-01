@@ -6,7 +6,6 @@ Require Import Coq.Program.Program Coq.Program.Equality.
 Require JMeq.
 Require Coq.Program.Equality.
 Implicit Type v A : Type.
-Unset Standard Proposition Elimination Names.
 
 Set Implicit Arguments.
 (* end hide *)

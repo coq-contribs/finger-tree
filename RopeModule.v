@@ -3,7 +3,6 @@ Require Import FingerTree.Modules.
 Require Import FingerTree.StringInterface.
 Require Import FingerTree.FingerTreeModule.
 Require Import Coq.Program.Program.
-Unset Standard Proposition Elimination Names.
 
 Set Implicit Arguments.
 

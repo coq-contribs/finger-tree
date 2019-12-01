@@ -8,8 +8,6 @@ Require Import FingerTree.KeyMonoid.
 Require Import Omega.
 Require DependentFingerTree.
 
-Unset Standard Proposition Elimination Names.
-
 Require Import Arith.
 
 Set Implicit Arguments.

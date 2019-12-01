@@ -9,8 +9,6 @@ Require Import FingerTree.DigitModule.
 Require Import Coq.Program.Program Coq.Program.Equality.
 Require Import Omega JMeq.
 
-Unset Standard Proposition Elimination Names.
-Unset Dependent Propositions Elimination.
 Set Implicit Arguments.
 (** Useful when working with existT equalities. *)
 Implicit Arguments inj_pair2 [U P p x y].
@@ -1273,7 +1271,7 @@ match type of IHt with
         intros.
         simpl_JMeq.
         subst.
-        destruct mid ; unfold isEmpty in H4 ; simpl in H4 ; try elim H4; program_simpl ; auto.
+        destruct mid ; unfold isEmpty in H2 ; simpl in H2 ; try elim H4; program_simpl ; auto.
         rewrite monoid_id_r in H0.
         rewrite H0 in H ; discriminate.
         destruct l ; simpl ; auto.
@@ -1431,7 +1429,7 @@ match type of IHt with
       Proof.
         destruct (split_digit measure p i pr) ; program_simpl.
         destruct_conjs. simpl_JMeq. autoinjections.
-        destruct H2 ; [left | right] ; auto.
+        destruct o1 ; [left | right] ; auto.
         rewrite H1 ; simpl. split.
       Qed.
 
@@ -1439,18 +1437,18 @@ match type of IHt with
       Proof.
         destruct (split_digit measure p i pr). program_simpl.
         reverse ; simplify_dep_elim.
-        rewrite H1 in H.
-        destruct H2. subst. simpl in *.
+        rewrite e in H.
+        destruct o1. subst. simpl in *.
         unfold option_digit_measure in *.
         simpl in H ; monoid_tac_in H ; auto.
-        destruct H3; auto. subst. monoid_tac_in H. right. now monoid_tac.
-        destruct H3; auto. subst. monoid_tac_in H. right. now monoid_tac.
+        destruct o2; auto. subst. monoid_tac_in H. right. now monoid_tac.
+        destruct o2; auto. subst. monoid_tac_in H. right. now monoid_tac.
       Qed.
 
       Next Obligation.
       Proof.
         destruct (split_digit measure p i pr) ; program_simpl. 
-        rewrite H1. monoid_tac. reflexivity.
+        rewrite e. monoid_tac. reflexivity.
       Qed.
 
       Next Obligation.
