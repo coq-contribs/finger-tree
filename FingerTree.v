@@ -6,7 +6,6 @@ Require Import Coq.Program.Program Coq.Program.Equality.
 Require Import Omega.
 Implicit Type v A : Type.
 Set Implicit Arguments.
-Unset Standard Proposition Elimination Names.
 
 Implicit Arguments fingertree [[mono] [ma]].
 (* end hide *)

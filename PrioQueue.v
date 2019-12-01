@@ -8,7 +8,6 @@ Require Import Arith.
 Require FingerTree.
 
 Require Import Coq.Structures.OrderedType.
-Unset Standard Proposition Elimination Names.
 
 Set Implicit Arguments.
 

@@ -5,7 +5,6 @@ Require Import FingerTree.Notations.
 Require Import FingerTree.Digit.
 Require Import Coq.Lists.List Coq.Program.Program JMeq Coq.Program.Equality.
 
-Unset Standard Proposition Elimination Names.
 Unset Transparent Obligations.
 
 Set Implicit Arguments.
@@ -1247,8 +1246,6 @@ Section DependentFingerTree.
         left ; compute ; auto.
       Qed.
 
-      Unset Dependent Propositions Elimination.
-
       Ltac monoid_tac_in H := autorewrite with monoid in H.
 
       Next Obligation.
@@ -1256,8 +1253,8 @@ Section DependentFingerTree.
         destruct_call split_digit. program_simpl.
         destruct_conjs.
         simpl_JMeq. subst t.
-        destruct H3 ; [left | right] ; auto.
-        rewrite H3 ; constructor.
+        destruct o1 ; [left | right] ; auto.
+        rewrite H1 ; constructor.
       Qed.
       
       Hint Extern 4 => discriminate : exfalso.
@@ -1267,13 +1264,13 @@ Section DependentFingerTree.
         change (p (i ∙ lparr pr rparr) = true) in H. right.
         destruct_call split_digit ; program_simpl.
         destruct_conjs ; simpl_JMeq ; autoinjections.
-        destruct o0. destruct H3 ; auto with exfalso. 
-        destruct o. destruct H4 ; auto with exfalso. 
-        rewrite H1 in H. 
+        destruct o0. destruct o1 ; auto with exfalso.
+        destruct o. destruct o2 ; auto with exfalso.
+        rewrite e in H.
         simpl in H. autorewrite with monoid in H ; auto.
 
-        destruct o. destruct H4; auto with exfalso.
-        rewrite H1 in H. monoid_tac_in H. monoid_tac. assumption.
+        destruct o. destruct o2; auto with exfalso.
+        rewrite e in H. monoid_tac_in H. monoid_tac. assumption.
       Qed.
       
       Next Obligation.
@@ -1281,8 +1278,8 @@ Section DependentFingerTree.
         destruct_call split_digit ; program_simpl.
         destruct_conjs ; simpl_JMeq ; autoinjections.
         change (digit_reducel (fun (i : v) (a : A) => i ∙ lparr a rparr) ε pr) with (lparr pr rparr) in *.
-        rewrite H1 in H. rewrite <- monoid_assoc. rewrite <- monoid_assoc. f_equal.
-        rewrite H1. rewrite monoid_assoc. reflexivity.
+        rewrite e in H. rewrite <- monoid_assoc. rewrite <- monoid_assoc. f_equal.
+        rewrite e. rewrite monoid_assoc. reflexivity.
       Qed.
 
       Next Obligation.

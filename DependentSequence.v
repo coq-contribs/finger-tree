@@ -6,7 +6,6 @@ Require Import Coq.Logic.FunctionalExtensionality.
 (* Require Import Reflect.Tactics. *)
 Require Import Arith.
 Require Import Omega.
-Unset Standard Proposition Elimination Names.
 
 Set Implicit Arguments.
 
