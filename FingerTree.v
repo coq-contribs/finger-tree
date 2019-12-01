@@ -7,7 +7,7 @@ Require Import Omega.
 Implicit Type v A : Type.
 Set Implicit Arguments.
 
-Implicit Arguments fingertree [[mono] [ma]].
+Arguments fingertree _ {mono} _ {ma}.
 (* end hide *)
 (** printing lparr $\coqdoublebar$ *)(** printing rparr $\coqdoublebar$ *)(** printing cdot $\cdot$ *)(** printing epsilon $\varepsilon$ *)(** printing +:+ $\treeapp$ *)(** printing ++ $\app$ *)(** printing := $\coloneqq$ *)(** printing :> $\Yright$ *)(** printing < $<$ *)(** printing > $>$ *)
 (** ** Une interface non dépendante

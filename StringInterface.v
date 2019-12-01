@@ -29,11 +29,11 @@ Module Type String.
   Parameter sub : forall (str : t) (offset : below (length str))
     (len : below (length str - `offset)), t.
 
-  Implicit Arguments sub [ ].
+  Arguments sub : clear implicits.
 
   Parameter get : forall (str : t) (idx : below (length str)), char.
 
-  Implicit Arguments get [ ].
+  Arguments get : clear implicits.
 
 End String.
 

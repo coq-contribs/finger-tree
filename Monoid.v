@@ -96,7 +96,6 @@ Class Measured v {m : Monoid v} (A : Type) := { measure : A -> v }.
 (** Par défaut, tout les arguments n'apparaissant pas à gauche de la flèche
    sont implicites. On veut ici que seule l'implémentation du monoïde le soit. *)
 
-Implicit Arguments Measured [[m]].
 
 (* begin hide *)
 Notation " 'lparr' x 'rparr' " := (measure x) (x ident, no associativity).

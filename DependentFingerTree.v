@@ -9,7 +9,7 @@ Unset Transparent Obligations.
 
 Set Implicit Arguments.
 (** Useful when working with existT equalities. *)
-Implicit Arguments inj_pair2 [U P p x y].
+Arguments inj_pair2 [U P p x y].
 (* end hide *)
 (** printing measure %\coqdefinitionref{FingerTree.Monoid.measure}{measure}% *)(** printing lparr $\coqdoublebar$ *)(** printing rparr $\coqdoublebar$ *)(** printing ∙ $\cdot$ *)(** printing epsilon $\varepsilon$ *)(** printing +:+ $\treeapp$ *)(** printing ++ $\app$ *)(** printing := $\coloneqq$ *)(** printing ::> $\Yright$ *)(** printing < $<$ *)
 (** On va maintenant définir la structure de %\FT% sur un monoïde et une mesure donnée.
@@ -97,7 +97,7 @@ Section DependentFingerTree.
   (* begin hide *)  
   Hint Unfold measure option_measure digit_measure : ft.
 
-  Implicit Arguments node [[ms]].
+  Arguments node _ {ms}.
 
   Lemma nodeMeasure_digits : forall `{ms :! Measured v A} (n : node A), 
     (measure n) = digit_reducel (fun i a => i ∙ measure a) ε (node_to_digit n).
@@ -157,7 +157,7 @@ Section DependentFingerTree.
              fingertree (A:=node A) (ma:=_) ms
     -> forall r : digit A, fingertree (measure l ∙ ms ∙ measure r).
 
-  Implicit Arguments fingertree [[ma]].
+  Arguments fingertree A {ma}.
   (* end hide *)
   
   (** Cette famille inductive est indexée par des valeurs de type [v].
@@ -365,7 +365,7 @@ Section DependentFingerTree.
     | nil_L : View_L
     | cons_L : A -> forall {s}, seq s -> View_L.
     
-    Implicit Arguments View_L [ ].
+    Arguments View_L : clear implicits.
 
     (** Une telle vue sera produite par la fonction [view_L], par récursion structurelle (polymorphe)
        sur le [fingertree]. On peut facilement utiliser la fonction partielle [digit_tail] qui n'accepte
@@ -637,8 +637,8 @@ Section DependentFingerTree.
     | nil_R : View_R seq
     | cons_R : forall s : v, seq A ma s -> A -> View_R seq.
     
-    Implicit Arguments nil_R [A ma seq].
-    Implicit Arguments cons_R [A ma seq s].
+    Arguments nil_R [A ma seq].
+    Arguments cons_R [A ma seq s].
 
     Program Fixpoint view_R `{ma :! Measured v A} (s : v) (t : fingertree A s) {struct t} : 
       View_R fingertree := 
