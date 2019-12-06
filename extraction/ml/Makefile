@@ -1,5 +1,5 @@
 OCAMLMAKEFILE = OCamlMakefile
-SOURCEMODULES = Datatypes Logic Bool Nat Specif Sumbool \
+SOURCEMODULES = Datatypes Decimal Logic Bool Nat Specif Sumbool \
  Equalities Orders OrdersTac \
  NZAxioms NAxioms NBase NDefOps \
  Modules DigitModule DependentFingerTreeModule \
