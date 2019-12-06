@@ -253,12 +253,15 @@ Module DependentFingerTree (M : Monoid).
 
     Next Obligation.
     Proof.
+      try rename H into H0.
+      try rename n into H.
       destruct pr ; simpl in H0 ; try discriminate ; auto.
       elim (H a0 a1 a2 a3) ; auto.
     Qed.
 
     Next Obligation.
     Proof.
+      try rename n into H.
       intros.
       destruct pr ; simpl ; auto ;
       try subst x ; try clear Heq_t ; try subst s ; monoid_tac ; auto ;
@@ -282,12 +285,15 @@ Module DependentFingerTree (M : Monoid).
 
     Next Obligation.
     Proof.
+      try rename H into H0.
+      try rename n into H.
       destruct sf ; simpl in H0 ; try discriminate ; auto.
       elim (H a0 a1 a2 a3) ; auto.
     Qed.
 
     Next Obligation.
     Proof.
+      try rename n into H.
       intros.
       destruct sf ; simpl ; monoid_tac ; auto.
       elim H with a0 a1 a2 a3 ; auto.
@@ -392,6 +398,8 @@ Module DependentFingerTree (M : Monoid).
     (* begin hide *)
     Next Obligation.
     Proof.
+      try rename H into H0.
+      try rename n into H.
       intros.
       destruct pr ; simpl in * ; auto.
       apply H with a ; auto.
@@ -700,6 +708,8 @@ match type of IHt with
 
     Next Obligation of view_R.
     Proof.
+      try rename H into H0.
+      try rename n into H.
       intros.
       destruct sf ; simpl in * ; auto.
       apply (H a). auto.
@@ -1268,6 +1278,10 @@ match type of IHt with
 
       Next Obligation.
       Proof.
+        try rename H into H1.
+        try rename H0 into H2.
+        try rename e0 into H0.
+        try rename e into H.
         intros.
         simpl_JMeq.
         subst.
@@ -1427,6 +1441,7 @@ match type of IHt with
 
       Next Obligation.
       Proof.
+        try rename e into H0.
         destruct (split_digit measure p i pr) ; program_simpl.
         destruct_conjs. simpl_JMeq. autoinjections.
         destruct o1 ; [left | right] ; auto.
@@ -1435,6 +1450,8 @@ match type of IHt with
 
       Next Obligation.
       Proof.
+        try rename H into H0.
+        try rename e into H.
         destruct (split_digit measure p i pr). program_simpl.
         reverse ; simplify_dep_elim.
         rewrite e in H.
@@ -1447,12 +1464,17 @@ match type of IHt with
 
       Next Obligation.
       Proof.
+        try rename H into H0.
+        try rename e into H.
         destruct (split_digit measure p i pr) ; program_simpl. 
         rewrite e. monoid_tac. reflexivity.
       Qed.
 
       Next Obligation.
       Proof.
+        try rename H into H1.
+        try rename e0 into H0.
+        try rename e into H.
         destruct (isEmpty_dec mid).
         destruct mid ; unfold isEmpty in i0 ; simpl in i0 ; program_simpl ; auto.
         red ; intros.
@@ -1467,7 +1489,9 @@ match type of IHt with
 
       Next Obligation.
       Proof.
-        intros. subst filtered_var0. 
+        intros. subst filtered_var0.
+        try rename e into H.
+        try rename e0 into H0. 
         clear Heq_anonymous0 split_tree'. subst filtered_var vpr vpm. program_simpl.
         right.
         destruct (split_node p ((i cdot digit_measure measure pr) cdot mls) x0).
@@ -1491,6 +1515,8 @@ match type of IHt with
       Next Obligation.
       Proof.
         intros. subst filtered_var0.
+        try rename e into H.
+        try rename e0 into H0.
         clear Heq_anonymous0 split_tree'. subst filtered_var vpr vpm. program_simpl.
         right.
         destruct (split_node p ((i cdot digit_measure measure pr) cdot mls) x0).
@@ -1512,6 +1538,8 @@ match type of IHt with
       Next Obligation.
       Proof.
         intros. subst filtered_var0.
+        try rename e into H.
+        try rename e0 into H0.
         clear split_tree' Heq_anonymous0. subst filtered_var vpr vpm. program_simpl.
         destruct (split_node p ((i cdot digit_measure measure pr) cdot mls) x0).
         simpl in *.
@@ -1527,6 +1555,9 @@ match type of IHt with
 
       Next Obligation.
       Proof.
+        try rename H into H1.
+        try rename e into H.
+        try rename e0 into H0.
         destruct (split_digit measure p
           ((i cdot digit_measure measure pr) cdot smid) sf).
         destruct x0 ; simpl in * ; program_simpl.
@@ -1541,6 +1572,9 @@ match type of IHt with
       
       Next Obligation.
       Proof.
+        try rename H into H1.
+        try rename e into H.
+        try rename e0 into H0.
         destruct (split_digit measure p
           ((i cdot digit_measure measure pr) cdot smid) sf).
         destruct x0 ; simpl in * ; program_simpl.
@@ -1552,6 +1586,9 @@ match type of IHt with
 
       Next Obligation.
       Proof.
+        try rename H into H1.
+        try rename e into H.
+        try rename e0 into H0.
         destruct (split_digit measure p
           ((i cdot digit_measure measure pr) cdot smid) sf).
         destruct x0 ; simpl in * ; program_simpl.

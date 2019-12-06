@@ -245,12 +245,14 @@ Section DependentFingerTree.
 
     Next Obligation.
     Proof.
+      try rename n into H.
       destruct pr ; simpl in H ; try discriminate ; auto.
       elim (H a0 a1 a2 a3) ; auto.
     Qed.
 
     Next Obligation.
     Proof.
+      try rename n into H.
       clear_subset_proofs. 
       destruct pr ; simpl ; auto ;
       try subst x ; try clear Heq_t ; try subst s ; monoid_tac ; auto ;
@@ -274,6 +276,7 @@ Section DependentFingerTree.
 
     Next Obligation.
     Proof.
+      try rename n into H.
       intros.
       red ; intros.
       destruct sf ; simpl in H0 ; try discriminate ; auto.
@@ -282,6 +285,7 @@ Section DependentFingerTree.
 
     Next Obligation.
     Proof.
+      try rename n into H.
       intros.
       unfold measure, digit_measure ; simpl.
       destruct sf ; simpl ; monoid_tac ; auto.
@@ -393,6 +397,7 @@ Section DependentFingerTree.
     (* begin hide *)
     Next Obligation.
     Proof.
+      try rename n into H.
       destruct pr ; simpl in * ; auto.
       intro ; apply (H a) ; auto.
     Defined.
@@ -622,6 +627,7 @@ Section DependentFingerTree.
 
     Next Obligation.
     Proof.
+      try rename n into H.
       intros. monoid_tac. rewrite <- monoid_append_ass. f_equal.
       symmetry in Heq_anonymous.
       apply view_L_cons in Heq_anonymous.
@@ -657,6 +663,7 @@ Section DependentFingerTree.
 
     Next Obligation of view_R.
     Proof.
+      try rename n into H.
       intros.
       destruct sf ; simpl in * ; auto.
       intro ; apply (H a) ; auto.
@@ -1250,6 +1257,8 @@ Section DependentFingerTree.
 
       Next Obligation.
       Proof.
+        try rename H into H0.
+        try rename e into H.
         destruct_call split_digit. program_simpl.
         destruct_conjs.
         simpl_JMeq. subst t.
@@ -1261,6 +1270,8 @@ Section DependentFingerTree.
 
       Next Obligation.
       Proof.
+        try rename H into H0.
+        try rename e into H.
         change (p (i ∙ lparr pr rparr) = true) in H. right.
         destruct_call split_digit ; program_simpl.
         destruct_conjs ; simpl_JMeq ; autoinjections.
@@ -1275,6 +1286,8 @@ Section DependentFingerTree.
       
       Next Obligation.
       Proof.
+        try rename H into H0.
+        try rename e into H.
         destruct_call split_digit ; program_simpl.
         destruct_conjs ; simpl_JMeq ; autoinjections.
         change (digit_reducel (fun (i : v) (a : A) => i ∙ lparr a rparr) ε pr) with (lparr pr rparr) in *.
@@ -1284,6 +1297,9 @@ Section DependentFingerTree.
 
       Next Obligation.
       Proof.
+        try rename H into H1.
+        try rename e into H.
+        try rename e0 into H0.
         destruct (isEmpty_dec mid).
         destruct mid ; unfold isEmpty in i0 ; simpl in i0 ; program_simpl ; auto.
         red ; intros.
@@ -1308,6 +1324,11 @@ Section DependentFingerTree.
 
       Next Obligation.
       Proof.
+        try rename H1 into H3.
+        try rename H0 into H2.
+        try rename H into H1.
+        try rename e into H.
+        try rename e0 into H0.
         clear split_tree' Heq_anonymous0.
         right.
         destruct_call split_node in Heq_anonymous. simpl in *. subst.
@@ -1328,6 +1349,11 @@ Section DependentFingerTree.
 
       Next Obligation.
       Proof.
+        try rename H1 into H3.
+        try rename H0 into H2.
+        try rename H into H1.
+        try rename e into H.
+        try rename e0 into H0.
         clear Heq_anonymous0 split_tree'.
         right.
         destruct_call split_node.
@@ -1346,6 +1372,11 @@ Section DependentFingerTree.
       
       Next Obligation.
       Proof.
+        try rename H1 into H3.
+        try rename H0 into H2.
+        try rename H into H1.
+        try rename e into H.
+        try rename e0 into H0.
         clear Heq_anonymous0.
         destruct_call split_node.
         simpl in * ; subst x1.
@@ -1357,6 +1388,11 @@ Section DependentFingerTree.
 
       Next Obligation.
       Proof.
+        try rename H1 into H3.
+        try rename H0 into H2.
+        try rename H into H1.
+        try rename e into H.
+        try rename e0 into H0.
         destruct_call split_digit.
         simpl in *. subst x0 ; program_simpl.
         right.
@@ -1368,7 +1404,9 @@ Section DependentFingerTree.
 
       Next Obligation.
       Proof.
-        destruct_call split_digit as [ [[l' x'] r'] ].
+        try rename H into H1.
+        try rename e into H.
+        try rename e0 into H0.        destruct_call split_digit as [ [[l' x'] r'] ].
         simpl in *. program_simpl.
         monoid_tac.
         destruct_pairs.
@@ -1378,6 +1416,9 @@ Section DependentFingerTree.
 
       Next Obligation.
       Proof.
+        try rename H into H1.
+        try rename e into H.
+        try rename e0 into H0.
         destruct_call split_digit as [ [ [ l' x' ] r' ] ]. 
         simpl in * ; program_simpl.
         monoid_tac. rewrite H2. auto.
